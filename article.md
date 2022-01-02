@@ -1,6 +1,6 @@
 **the goal of this article** is to introduce you to an alternative, more developer friendly way of bulding web apis with asp.net 6 instead of the more commonly used mvc controllers.
 
-**we will be exploring** the open source micro framework [FastEndpoints](https://fast-endpoints.com/) which is built on top of the new minimal api in .net 6, where we can get all the performance benefits without the pain-points of minimal api. the resulting code base is cleaner to navigate and project maintainability becomes a breeze when combined with [vertical slice architecture](https://www.ghyston.com/insights/architecting-for-maintainability-through-vertical-slices), no matter the size or complexity of the project, because the framework stays out of your way so you can focus on the engineering of your systems.
+**we will be exploring** the open source endpoint library [FastEndpoints](https://fast-endpoints.com/) which is built on top of the new minimal api in .net 6, where we can get all the performance benefits without the pain-points of minimal api. the resulting code-base is cleaner to navigate and project maintainability becomes a breeze when combined with [vertical slice architecture](https://www.ghyston.com/insights/architecting-for-maintainability-through-vertical-slices), no matter the size or complexity of the project, because the framework stays out of your way so you can focus on the engineering aspects of your systems.
 
 **let's get our hands dirty** by building a rest api for a simplified version of dev.to where authors/posters can sign up for an account and publish articles. new articles will go into a moderation queue where the site administrator would have to approve it before being publicly available.
 
@@ -48,7 +48,42 @@ dotnet add package FastEndpoints
 
 ![feature folder structure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/alci7aefu6bc9ib04pho.png)
 
-each last level of the tree is going to be a single endpoint which could either be a command or a query which the ui of our app can perform. queries are prefixed with `Get` as a convention indicating it is a retrieval of data, whereas commands are prefixed with verbs such as `Save`, `Approve`, `Reject`, etc. indicating committing some state change.
+each last level of the tree is going to be a single endpoint which could either be a command or a query which the ui/frontend of our app can call. queries are prefixed with `Get` as a convention indicating it is a retrieval of data, whereas commands are prefixed with verbs such as `Save`, `Approve`, `Reject`, etc. indicating committing of some state change. this might sound familiar if you've come across `CQRS` before, but we're not separating reads vs. writes here as done in CQRS. instead, we're organizing our our features/endpoints in accordance with `Vertical Slice Architecter`.
 
+FastEndpoints is an implementation of [REPR pattern](https://deviq.com/design-patterns/repr-design-pattern). (this will be the last pattern i'll talk about in this article, i promise!)
 
+> The REPR Design Pattern defines web API endpoints as having three components: a Request, an Endpoint, and a Response. It simplifies the frequently-used MVC pattern and is more focused on API development.
 
+so, in order to give us some relief of the boring, repetitive task of creating the multiple class files needed for an endpoint, go ahead and install [this visual studio extension](https://fast-endpoints.com/wiki/VS-Extension.html) provided by FastEndpoints.
+
+### program.cs
+first thing's first... let's update `program.cs` file to look like the following:
+```csharp
+global using FastEndpoints;
+
+var builder = WebApplication.CreateBuilder();
+builder.Services.AddFastEndpoints();
+
+var app = builder.Build();
+app.UseAuthorization();
+app.UseFastEndpoints();
+app.Run();
+```
+this is all that's needed for this to be a web api project. but... if you try to run the program now, you will be greeted with a run-time exception such as the following:
+
+> **InvalidOperationException:** 'FastEndpoints was unable to find any endpoint declarations!'
+
+let's fix that by creating our very first endpoint using the vs extension we just installed.
+
+### Author Signup Endpoint
+
+right-click the `Author/Signup` folder in visual studio > add > new item. then select `FastEndpoints Feature FileSet` new item template located under the `Installed > Visual C#` node. then for the file name, enter `Author.Signup.cs` as shown below:
+
+<img loading="lazy" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b34139su76mm3toq9dps.gif">
+
+what that will do is, it'll create a new set of files under the folder you selected with a namespace specific for this endpoint. open up `Endpoint.cs` file and have a look at the namespace at the top. it is what we typed in as the file name earlier.
+
+while we have the endpoint class opened, go ahead and replace it's contents with the code below:
+```csharp
+
+```

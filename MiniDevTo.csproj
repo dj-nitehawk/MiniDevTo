@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <NoWarn>CA2016;RCS1090</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,9 +12,19 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\Admin\NewFolder\" />
-        <Folder Include="Features\Author\" />
-        <Folder Include="Features\Public\" />
+        <Folder Include="Features\Admin\Login\" />
+        <Folder Include="Features\Admin\ArticleModeration\GetPendingList\" />
+        <Folder Include="Features\Admin\ArticleModeration\Approve\" />
+        <Folder Include="Features\Admin\ArticleModeration\" />
+        <Folder Include="Features\Admin\ArticleModeration\Reject\" />
+        <Folder Include="Features\Author\Articles\GetMyArticles\" />
+        <Folder Include="Features\Author\Articles\GetArticle\" />
+        <Folder Include="Features\Author\Articles\SaveArticle\" />
+        <Folder Include="Features\Author\Login\" />
+        <Folder Include="Features\Public\GetArticleList\" />
+        <Folder Include="Features\Public\GetArticle\" />
+        <Folder Include="Features\Public\GetArticleComments\" />
+        <Folder Include="Features\Public\AddArticleComment\" />
     </ItemGroup>
 
 </Project>

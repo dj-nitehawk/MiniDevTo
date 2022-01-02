@@ -42,6 +42,9 @@
 ```bash
 dotnet new web -n MiniDevTo
 dotnet add package FastEndpoints
+dotnet add package FastEndpoints.Validation
+dotnet add package FastEndpoints.Security
+dotnet add package FastEndpoints.Swagger
 ```
 
 **create the folder structure** for our features so that it looks like the following:
@@ -56,10 +59,11 @@ FastEndpoints is an implementation of [REPR pattern](https://deviq.com/design-pa
 
 so, in order to give us some relief of the boring, repetitive task of creating the multiple class files needed for an endpoint, go ahead and install [this visual studio extension](https://fast-endpoints.com/wiki/VS-Extension.html) provided by FastEndpoints.
 
-### program.cs
+### Program.cs
 first thing's first... let's update `program.cs` file to look like the following:
 ```csharp
 global using FastEndpoints;
+global using FastEndpoints.Validation;
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
@@ -85,5 +89,24 @@ what that will do is, it'll create a new set of files under the folder you selec
 
 while we have the endpoint class opened, go ahead and replace it's contents with the code below:
 ```csharp
+namespace Author.Signup;
 
+public class Endpoint : Endpoint<Request, Response, Mapper>
+{
+    public override void Configure()
+    {
+        Verbs(Http.POST);
+        Routes("/author/signup");
+        AllowAnonymous();
+    }
+
+    public override async Task HandleAsync(Request r, CancellationToken c)
+    {
+        await SendAsync(Response);
+    }
+}
 ```
+what do we have here? we have an endpoint class definition that inherits from the generic base class `Endpoint<TRequest, TResponse, TMapper>`. it has 2 overridden methods `Configure()` and `HandleAsync()`.
+
+in the configure method, we're specifying that we want the endpoint to listen for the http verb/method `post` on the route `/author/signup`. we're also saying that unauthenticated users should be allowed to access this endpoint by using the `AllowAnonymous()` method. 
+

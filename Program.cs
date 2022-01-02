@@ -1,4 +1,5 @@
 global using FastEndpoints;
+global using FastEndpoints.Validation;
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();

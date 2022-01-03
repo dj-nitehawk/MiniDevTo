@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <NoWarn>CA2016;RCS1090</NoWarn>
+        <NoWarn>CA2016;RCS1090;CS8618</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

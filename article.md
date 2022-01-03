@@ -102,11 +102,35 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
-        await SendAsync(Response);
+        await SendAsync(new()
+        {
+            //blank for now
+        });
     }
 }
 ```
 what do we have here? we have an endpoint class definition that inherits from the generic base class `Endpoint<TRequest, TResponse, TMapper>`. it has 2 overridden methods `Configure()` and `HandleAsync()`.
 
 in the configure method, we're specifying that we want the endpoint to listen for the http verb/method `post` on the route `/author/signup`. we're also saying that unauthenticated users should be allowed to access this endpoint by using the `AllowAnonymous()` method. 
+
+the `HandleAsync()` method is where you'd write the logic for handling the incoming request. for now it's just sending a blank response because we haven't yet added any fields/properties to our request & response dto classes.
+
+### Models.cs
+
+open up the `models.cs` file and replace request and model classes with the following:
+```csharp
+public class Request
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string UserName { get; set; }
+    public string Password { get; set; }
+}
+
+public class Response
+{
+    public string Message { get; set; }
+}
+```
 

@@ -102,7 +102,7 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
-        await SendAsync(new()
+        await SendAsync(new Response()
         {
             //blank for now
         });
@@ -117,7 +117,7 @@ the `HandleAsync()` method is where you'd write the logic for handling the incom
 
 ### Models.cs
 
-open up the `models.cs` file and replace request and model classes with the following:
+open up the `models.cs` file and replace request and response classes with the following:
 ```csharp
 public class Request
 {

@@ -11,7 +11,7 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
-        await SendAsync(new()
+        await SendAsync(new Response()
         {
             //blank for now
         });

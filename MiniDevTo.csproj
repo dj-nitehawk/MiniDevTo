@@ -13,6 +13,7 @@
         <PackageReference Include="FastEndpoints.Swagger" Version="2.18.1" />
         <PackageReference Include="FastEndpoints.Validation" Version="2.18.1" />
         <PackageReference Include="MongoDB.Entities" Version="20.26.1" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,14 +1,23 @@
 global using FastEndpoints;
 global using FastEndpoints.Validation;
-using FastEndpoints.Swagger; //add this
+global using MongoDB.Entities;
+
+using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder();
+builder.Services.Configure<JsonOptions>(o => o.SerializerOptions.PropertyNamingPolicy = null); //pascal case for serialization
 builder.Services.AddFastEndpoints();
-builder.Services.AddSwagger(); //add this
+builder.Services.AddSwagger();
 
 var app = builder.Build();
 app.UseAuthorization();
 app.UseFastEndpoints();
-app.UseSwagger(); //add this
-app.UseSwaggerUI(); //add this
+app.UseSwagger();
+app.UseSwaggerUI();
+
+await DB.InitAsync(
+    database: "MiniDevTo",
+    host: "localhost");
+
 app.Run();

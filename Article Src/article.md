@@ -207,7 +207,7 @@ public override async Task HandleAsync(Request r, CancellationToken c)
 }
 ```
 
-start debugging again and execute the same request in swagger. which should display the response from the server as follows:
+start the app again and execute the same request in swagger. which should display the response from the server as follows:
 
 <img loading="lazy" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/el5fgxodte3nexdi4py0.png">
 
@@ -234,10 +234,15 @@ public class Validator : Validator<Request>
             .NotEmpty().WithMessage("a username is required!")
             .MinimumLength(3).WithMessage("username is too short!")
             .MaximumLength(15).WithMessage("username is too long!");
+
+        RuleFor(x => x.Password)
+            .NotEmpty().WithMessage("a password is required!")
+            .MinimumLength(10).WithMessage("password is too short!")
+            .MaximumLength(25).WithMessage("password is too long!");
     }
 }
 ```
-here we're defining the input validation rules using [fluentvalidation rules](https://fluentvalidation.net/). let's see what happens when the user input doesn't meet the above validation criteria. execute the same request as above in swagger with the following incorrect json content:
+here we're defining the input validation requirements using [fluent validation rules](https://fluentvalidation.net/). let's see what happens when the user input doesn't meet the above  criteria. execute the same request in swagger with the following incorrect json content:
 ```java
 {
   "LastName": "Lawrence",
@@ -250,15 +255,43 @@ here we're defining the input validation rules using [fluentvalidation rules](ht
 the server will respond with this:
 ```java
 {
-  "statusCode": 400,
-  "message": "One or more errors occured!",
-  "errors": {
-    "FirstName": [
-      "your name is required!"
-    ],
-    "Email": [
-      "the format of your email address is wrong!"
-    ]
+  "StatusCode": 400,
+  "Message": "One or more errors occured!",
+  "Errors": {
+    "FirstName": [ "your name is required!" ],
+    "Email": [ "the format of your email address is wrong!" ],
+    "Password": ["password is too short!" ]
   }
+}
+```
+
+as you can see, if the incoming request data does not meet the validation criteria, a `http 400` bad response is returned with the details of what is wrong. the handler logic will not be executed in case there is a validation error in the incoming request. this default behavior can be changed [like this](https://fast-endpoints.com/wiki/Validation.html#disable-automatic-failure-response) if need be.
+
+### Handler Logic
+
+let's go ahead and create a new `Author` entity and persist it do the database. make the handler method look like this:
+```csharp
+public override async Task HandleAsync(Request r, CancellationToken c)
+{
+    var author = Map.ToEntity(r);
+
+    var emailIsTaken = await Data.EmailAddressIsTaken(author.Email);
+
+    if (emailIsTaken)
+        AddError(r => r.Email, "sorry! email address is already in use...");
+
+    var userNameIsTaken = await Data.UserNameIsTaken(author.UserName);
+
+    if (userNameIsTaken)
+        AddError(r => r.UserName, "sorry! that username is not available...");
+
+    ThrowIfAnyErrors();
+
+    await Data.CreateNewAuthor(author);
+
+    await SendAsync(new()
+    {
+        Message = "Thank you for signing up as an author!"
+    });
 }
 ```

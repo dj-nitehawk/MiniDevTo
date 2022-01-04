@@ -38,12 +38,10 @@
 
 ## let's go...
 
-**create a new web project** and add FastEndpoints to it either using visual studio or by running the following commands in a terminal window:
+**create a new web project** and install the dependencies either using visual studio or by running the following commands in a terminal window:
 ```bash
 dotnet new web -n MiniDevTo
 dotnet add package FastEndpoints
-dotnet add package FastEndpoints.Validation
-dotnet add package FastEndpoints.Security
 dotnet add package FastEndpoints.Swagger
 dotnet add package MongoDB.Entities
 ```
@@ -321,3 +319,15 @@ if there are no validation errors added, and author creation worked, the followi
   "Message": "Thank you for signing up as an author!"
 }
 ```
+
+# Congratulations!
+you've persevered thus far and have your first working endpoint. if you're interested in completing this exercise, head on over to github and have a look through the [full source code](https://github.com/dj-nitehawk/MiniDevTo). things should now be self explanatory. if something is unclear, please comment here or open a [github issue](https://github.com/dj-nitehawk/MiniDevTo/issues/new). i will try my best to answer within 24hrs. also have a look through the following resources which will explain most of the code.
+
+
+# Resources
+- **[Project Source Code](https://github.com/dj-nitehawk/MiniDevTo)**
+- **[FastEndpoints Documentation](https://fast-endpoints.com/)**
+- **[MongoDB.Entities Documentation](https://mongodb-entities.com/)**
+- **[Introductory Article To MongoDB](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)**
+- **[Vertical Slices Starter Template](https://github.com/dj-nitehawk/MongoWebApiStarter)**
+- **[A Compendium Of VSA Resources](https://mehdihadeli.github.io/awesome-software-architecture/architectural-style/vertical-slice-architecture/)**

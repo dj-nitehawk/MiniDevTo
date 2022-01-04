@@ -13,7 +13,7 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
     {
         await SendAsync(new Response()
         {
-            //blank for now
+            Message = $"hello {r.FirstName} {r.LastName}! your request has been received!"
         });
     }
 }

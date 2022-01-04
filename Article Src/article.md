@@ -195,3 +195,18 @@ before executing the request, head on over to the `Endpoint.cs` file and place a
 <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2x3adqpigbe2nc914bnf.png" loading="lazy">
 
 that is basically how you receive a request from a client (swagger-ui in this case). the handler method is supplied with a fully populated poco from the incoming http request. for a detailed explanation of how this model binding works, please have a look at the documentation page [here](https://fast-endpoints.com/wiki/Model-Binding.html).
+
+**let's return a response** from our endpoint now. stop debugging and update the `HandleAsync()` method to look like the following:
+```csharp
+public override async Task HandleAsync(Request r, CancellationToken c)
+{
+    await SendAsync(new Response()
+    {
+        Message = $"hello {r.FirstName} {r.LastName}! your request has been received!"
+    });
+}
+```
+
+start debugging again and execute the same request again in swagger. which should display the response from the server as follows:
+
+<img loading="lazy" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/el5fgxodte3nexdi4py0.png">

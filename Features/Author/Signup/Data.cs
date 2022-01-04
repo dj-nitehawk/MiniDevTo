@@ -4,16 +4,22 @@ public static class Data
 {
     internal static Task<bool> EmailAddressIsTaken(string email)
     {
-        throw new NotImplementedException();
+        return DB
+            .Find<Dom.Author>()
+            .Match(a => a.Email == email)
+            .ExecuteAnyAsync();
     }
 
-    internal static Task<bool> UserNameIsTaken(string userName)
+    internal static Task<bool> UserNameIsTaken(string loweCaseUserName)
     {
-        throw new NotImplementedException();
+        return DB
+            .Find<Dom.Author>()
+            .Match(a => a.UserName.ToLower() == loweCaseUserName)
+            .ExecuteAnyAsync();
     }
 
     internal static Task CreateNewAuthor(Dom.Author author)
     {
-        throw new NotImplementedException();
+        return author.SaveAsync();
     }
 }

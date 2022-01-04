@@ -18,7 +18,7 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
         if (emailIsTaken)
             AddError(r => r.Email, "sorry! email address is already in use...");
 
-        var userNameIsTaken = await Data.UserNameIsTaken(author.UserName);
+        var userNameIsTaken = await Data.UserNameIsTaken(author.UserName.ToLower());
 
         if (userNameIsTaken)
             AddError(r => r.UserName, "sorry! that username is not available...");

@@ -269,7 +269,7 @@ as you can see, if the incoming request data does not meet the validation criter
 
 ### Handler Logic
 
-let's go ahead and create a new `Author` entity and persist it do the database. make the handler method look like this:
+let's go ahead and persists a new `Author` entity to the database by modifying the handler logic.
 ```csharp
 public override async Task HandleAsync(Request r, CancellationToken c)
 {

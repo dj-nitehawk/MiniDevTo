@@ -134,3 +134,40 @@ public class Response
 }
 ```
 
+### Swagger UI
+now, let's setup swagger so we have a way to interact with our endpoints using a web browser as opposed to using something like postman. open up `Program.cs` again and make it look like this:
+
+```csharp
+global using FastEndpoints;
+global using FastEndpoints.Validation;
+using FastEndpoints.Swagger; //add this
+
+var builder = WebApplication.CreateBuilder();
+builder.Services.AddFastEndpoints();
+builder.Services.AddSwagger(); //add this
+
+var app = builder.Build();
+app.UseAuthorization();
+app.UseFastEndpoints();
+app.UseSwagger(); //add this
+app.UseSwaggerUI(); //add this
+app.Run();
+```
+
+then open up `Properties/launchSettings.json` file and replace contents with this:
+```java
+{
+  "profiles": {
+    "MiniDevTo": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+```
+updating launch settings is not mandatory but let's fix the listening port of our api server to `8080` for the purpose of this article.

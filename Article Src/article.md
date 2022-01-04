@@ -215,3 +215,50 @@ there are [multiple ways to send responses](https://fast-endpoints.com/wiki/Misc
 
 ### Input Validation
 
+open the `Models.cs` file and make the validator class look like the following:
+```csharp
+public class Validator : Validator<Request>
+{
+    public Validator()
+    {
+        RuleFor(x => x.FirstName)
+            .NotEmpty().WithMessage("your name is required!")
+            .MinimumLength(3).WithMessage("name is too short!")
+            .MaximumLength(25).WithMessage("name is too long!");
+
+        RuleFor(x => x.Email)
+            .NotEmpty().WithMessage("email address is required!")
+            .EmailAddress().WithMessage("the format of your email address is wrong!");
+
+        RuleFor(x => x.UserName)
+            .NotEmpty().WithMessage("a username is required!")
+            .MinimumLength(3).WithMessage("username is too short!")
+            .MaximumLength(15).WithMessage("username is too long!");
+    }
+}
+```
+here we're defining the input validation rules using [fluentvalidation rules](https://fluentvalidation.net/). let's see what happens when the user input doesn't meet the above validation criteria. execute the same request as above in swagger with the following incorrect json content:
+```java
+{
+  "LastName": "Lawrence",
+  "Email": "what is email?",
+  "UserName": "EagleFang",
+  "Password": "123"
+}
+```
+
+the server will respond with this:
+```java
+{
+  "statusCode": 400,
+  "message": "One or more errors occured!",
+  "errors": {
+    "FirstName": [
+      "your name is required!"
+    ],
+    "Email": [
+      "the format of your email address is wrong!"
+    ]
+  }
+}
+```

@@ -57,10 +57,10 @@ FastEndpoints is an implementation of [REPR pattern](https://deviq.com/design-pa
 
 > The REPR Design Pattern defines web API endpoints as having three components: a Request, an Endpoint, and a Response. It simplifies the frequently-used MVC pattern and is more focused on API development.
 
-so, in order to give us some relief of the boring, repetitive task of creating the multiple class files needed for an endpoint, go ahead and install [this visual studio extension](https://fast-endpoints.com/wiki/VS-Extension.html) provided by FastEndpoints.
+so, in order to give us some relief of the boring, repetitive task of creating the multiple class files needed for an endpoint, go ahead and install [this visual studio extension](https://fast-endpoints.com/wiki/VS-Extension.html) provided by FastEndpoints. no worries if you're not using visual studio, you can create those files manually.
 
 ### Program.cs
-first thing's first... let's update `program.cs` file to look like the following:
+first thing's first... let's update `Program.cs` file to look like the following:
 ```csharp
 global using FastEndpoints;
 global using FastEndpoints.Validation;
@@ -117,7 +117,7 @@ the `HandleAsync()` method is where you'd write the logic for handling the incom
 
 ### Models.cs
 
-open up the `models.cs` file and replace request and response classes with the following:
+open up the `Models.cs` file and replace request and response classes with the following:
 ```csharp
 public class Request
 {

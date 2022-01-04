@@ -45,6 +45,7 @@ dotnet add package FastEndpoints
 dotnet add package FastEndpoints.Validation
 dotnet add package FastEndpoints.Security
 dotnet add package FastEndpoints.Swagger
+dotnet add package MongoDB.Entities
 ```
 
 **create the folder structure** for our features so that it looks like the following:
@@ -171,3 +172,26 @@ then open up `Properties/launchSettings.json` file and replace contents with thi
 }
 ```
 updating launch settings is not mandatory but let's fix the listening port of our api server to `8080` for the purpose of this article.
+
+next build and run your project in debug mode (CTRL+F5 in visual studio). fire up your web browser and head on over to the url `http://localhost:8080/swagger` to see the swagger ui.
+
+you should now be seeing something like this:
+
+<img loading="lazy" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c0mrzzv5i3wt2uaqgsxx.png">
+
+expand the `/author/signup` endpoint, and modify the request body/json to look like this (click `Try It Out` button to do so):
+```java
+{
+  "FirstName": "Johnny",
+  "LastName": "Lawrence",
+  "Email": "what@is.uber",
+  "UserName": "EagleFang",
+  "Password": "death2kobra"
+}
+```
+
+before executing the request, head on over to the `Endpoint.cs` file and place a breakpoint on line 14. then go ahead and hit the execute button in swagger. once the breakpoint is hit, inspect the request dto parameter of the `HandleAsync()` method where you will see something like this:
+
+<img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2x3adqpigbe2nc914bnf.png" loading="lazy">
+
+that is basically how you receive a request from a client (swagger-ui in this case). the handler method is supplied with a fully populated poco from the incoming http request. for a detailed explanation of how this model binding works, please have a look at the documentation page [here](https://fast-endpoints.com/wiki/Model-Binding.html).

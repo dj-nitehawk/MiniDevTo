@@ -17,3 +17,4 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
         });
     }
 }
+

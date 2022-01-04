@@ -207,6 +207,11 @@ public override async Task HandleAsync(Request r, CancellationToken c)
 }
 ```
 
-start debugging again and execute the same request again in swagger. which should display the response from the server as follows:
+start debugging again and execute the same request in swagger. which should display the response from the server as follows:
 
 <img loading="lazy" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/el5fgxodte3nexdi4py0.png">
+
+there are [multiple ways to send responses](https://fast-endpoints.com/wiki/Misc-Conveniences.html#send-methods) back to the client from a handler. here we're sending a new instance of a response dto populated with a custom message.
+
+### Input Validation
+

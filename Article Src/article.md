@@ -295,3 +295,29 @@ public override async Task HandleAsync(Request r, CancellationToken c)
     });
 }
 ```
+ first, we're using the `ToEntity()` method on the `Map` property of the endpoint class to transform the request dto into an `Author` [domain entity](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Entities/Author.cs). the logic for mapping is in the `Mapper.cs` file which can be [found here](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Features/Author/Signup/Mapper.cs). you can read more about the mapper class [here](https://fast-endpoints.com/wiki/Domain-Entity-Mapping.html).
+
+then we're asking the database if this email address is already taken by someone. [code here](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Features/Author/Signup/Data.cs). if it's already taken we're adding a validation error to the collection of errors of the endpoint using the `AddError()` method.
+
+next, we're asking the db if the username is already taken by someone and add an error if it's taken.
+
+after all the business rules are checked, we want to send an error response to the client if any of the previous business rule checks have failed. that's what the `ThrowIfAnyErrors()` does. when either the username or email address is taken, a response like the following will be sent to the client. execution is stopped at that point and the proceeding lines of code are not executed.
+
+```java
+{
+  "StatusCode": 400,
+  "Message": "One or more errors occured!",
+  "Errors": {
+    "Email": [ "sorry! email address is already in use." ],
+    "UserName": [ "sorry! that username is not available." ]
+  }
+}
+```
+
+if there are no validation errors added, and author creation worked, the following json response will be received by the client.
+
+```java
+{
+  "Message": "Thank you for signing up as an author!"
+}
+```

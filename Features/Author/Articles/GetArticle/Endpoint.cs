@@ -1,6 +1,6 @@
 ﻿namespace Author.Articles.GetArticle;
 
-public class Endpoint : Endpoint<Request, Response, Mapper>
+public class Endpoint : Endpoint<Request, Response>
 {
     public override void Configure()
     {

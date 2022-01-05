@@ -14,6 +14,9 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
         Response.ArticleID = await Data.CreateOrUpdateArticle(
             await Map.ToEntityAsync(r));
 
+        if (Response.ArticleID is null)
+            ThrowError("Unable to save the article!");
+
         await SendAsync(Response);
     }
 }

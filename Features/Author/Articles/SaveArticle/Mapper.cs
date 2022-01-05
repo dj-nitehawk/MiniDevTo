@@ -7,6 +7,7 @@ public class Mapper : Mapper<Request, Response, Dom.Article>
         return new Dom.Article()
         {
             ID = r.ArticleID,
+            AuthorID = r.AuthorID,
             Title = r.Title,
             Content = r.Content,
             AuthorName = await Data.GetAuthorName(r.AuthorID)

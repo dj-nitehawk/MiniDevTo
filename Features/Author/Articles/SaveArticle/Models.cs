@@ -2,14 +2,10 @@
 
 namespace Author.Articles.SaveArticle;
 
-public class Request
+public class Request : ArticleModel
 {
     [FromClaim]
     public string AuthorID { get; set; }
-
-    public string? ArticleID { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
 }
 
 public class Validator : Validator<Request>
@@ -34,5 +30,5 @@ public class Validator : Validator<Request>
 public class Response
 {
     public string Message => "Article saved!";
-    public string ArticleID { get; set; }
+    public string? ArticleID { get; set; }
 }

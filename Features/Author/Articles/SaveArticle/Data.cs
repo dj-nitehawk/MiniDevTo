@@ -1,7 +1,4 @@
-﻿using Dom;
-using MongoDB.Bson;
-
-namespace Author.Articles.SaveArticle;
+﻿namespace Author.Articles.SaveArticle;
 
 public static class Data
 {
@@ -14,7 +11,7 @@ public static class Data
             .ExecuteSingleAsync();
     }
 
-    internal static async Task<string> CreateOrUpdateArticle(Article article)
+    internal static async Task<string?> CreateOrUpdateArticle(Dom.Article article)
     {
         if (article.ID is null) //create new article
         {
@@ -23,9 +20,24 @@ public static class Data
         }
         else //update existing article
         {
-            await article.SavePreservingAsync();
+            var res = await DB
+                .Update<Dom.Article>()
+                .Match(a =>
+                       a.ID == article.ID &&
+                       a.AuthorID == article.AuthorID)
+                .ModifyOnly(
+                    members: a => new
+                    {
+                        a.Title,
+                        a.Content
+                    },
+                    entity: article)
+                .ExecuteAsync();
+
+            if (res?.MatchedCount != 1)
+                return null;
         }
 
-        return article.ID!;
+        return article.ID;
     }
 }

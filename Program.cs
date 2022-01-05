@@ -7,6 +7,7 @@ global using MiniDevTo.Auth;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Http.Json;
 using MiniDevTo.Migrations;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.Configure<JsonOptions>(o => o.SerializerOptions.PropertyNamingPolicy = null); //pascal case for serialization
@@ -17,7 +18,11 @@ var app = builder.Build();
 app.UseAuthorization();
 app.UseFastEndpoints();
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(o =>
+{
+    o.DocExpansion(DocExpansion.None);
+    o.DefaultModelExpandDepth(0);
+});
 
 await DB.InitAsync(database: "MiniDevTo", host: "localhost");
 _001_seed_initial_admin_account.SuperAdminPassword = app.Configuration["SuperAdminPassword"];

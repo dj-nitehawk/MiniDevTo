@@ -15,6 +15,7 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddSwagger();
 
 var app = builder.Build();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints();
 app.UseSwagger();

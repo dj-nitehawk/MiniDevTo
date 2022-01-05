@@ -9,6 +9,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Remove="Article Src\**" />
+        <Content Remove="Article Src\**" />
+        <EmbeddedResource Remove="Article Src\**" />
+        <None Remove="Article Src\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="FastEndpoints" Version="2.18.1" />
         <PackageReference Include="FastEndpoints.Security" Version="2.18.1" />
         <PackageReference Include="FastEndpoints.Swagger" Version="2.18.1" />
@@ -23,7 +30,6 @@
         <Folder Include="Features\Admin\ArticleModeration\Reject\" />
         <Folder Include="Features\Author\Articles\GetMyArticles\" />
         <Folder Include="Features\Author\Articles\GetArticle\" />
-        <Folder Include="Features\Author\Articles\SaveArticle\" />
         <Folder Include="Features\Public\GetArticleList\" />
         <Folder Include="Features\Public\GetArticle\" />
         <Folder Include="Features\Public\GetArticleComments\" />

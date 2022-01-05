@@ -1,4 +1,6 @@
-﻿namespace Author.Articles.SaveArticle;
+﻿using MongoDB.Bson;
+
+namespace Author.Articles.SaveArticle;
 
 public class Request
 {
@@ -14,6 +16,11 @@ public class Validator : Validator<Request>
 {
     public Validator()
     {
+        RuleFor(x => x.ArticleID)
+            .Must(id => ObjectId.TryParse(id, out _))
+            .When(x => !string.IsNullOrEmpty(x.ArticleID))
+            .WithMessage("Article Id is invalid!");
+
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage("Title is required!")
             .MinimumLength(10).WithMessage("Title is too short!");

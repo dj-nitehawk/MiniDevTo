@@ -2,6 +2,6 @@
 
 public static class Claim
 {
-    public const string AdminID = "AccountID";
-    public const string AuthorID = "EmployeeID";
+    public const string AdminID = "AdminID";
+    public const string AuthorID = "AuthorID";
 }

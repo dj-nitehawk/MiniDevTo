@@ -1,9 +1,12 @@
 global using FastEndpoints;
 global using FastEndpoints.Validation;
+global using FastEndpoints.Security;
 global using MongoDB.Entities;
+global using MiniDevTo.Auth;
 
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Http.Json;
+using MiniDevTo.Migrations;
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.Configure<JsonOptions>(o => o.SerializerOptions.PropertyNamingPolicy = null); //pascal case for serialization
@@ -16,8 +19,8 @@ app.UseFastEndpoints();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-await DB.InitAsync(
-    database: "MiniDevTo",
-    host: "localhost");
+await DB.InitAsync(database: "MiniDevTo", host: "localhost");
+_001_seed_initial_admin_account.SuperAdminPassword = app.Configuration["SuperAdminPassword"];
+await DB.MigrateAsync();
 
 app.Run();

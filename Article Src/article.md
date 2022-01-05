@@ -320,11 +320,11 @@ if there are no validation errors added, and author creation worked, the followi
 }
 ```
 
-# Congratulations!
+## Congratulations!
 you've persevered thus far and have your first working endpoint. if you're interested in completing this exercise, head on over to github and have a look through the [full source code](https://github.com/dj-nitehawk/MiniDevTo). things should now be self explanatory. if something is unclear, please comment here or open a [github issue](https://github.com/dj-nitehawk/MiniDevTo/issues/new). i will try my best to answer within 24hrs. also have a look through the following resources which will explain most of the code.
 
 
-# Resources
+## Resources
 - **[Project Source Code](https://github.com/dj-nitehawk/MiniDevTo)**
 - **[FastEndpoints Documentation](https://fast-endpoints.com/)**
 - **[MongoDB.Entities Documentation](https://mongodb-entities.com/)**

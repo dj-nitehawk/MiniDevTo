@@ -24,8 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\Admin\ArticleModeration\Approve\" />
-        <Folder Include="Features\Admin\ArticleModeration\Reject\" />
         <Folder Include="Features\Public\GetArticleList\" />
         <Folder Include="Features\Public\GetArticle\" />
         <Folder Include="Features\Public\GetArticleComments\" />

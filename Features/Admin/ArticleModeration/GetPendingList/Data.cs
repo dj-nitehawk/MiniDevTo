@@ -6,9 +6,10 @@ public static class Data
     {
         return DB
             .Find<Dom.Article, ArticleModel>()
-            .Match(a => !a.IsApproved)
+            .Match(a => !a.IsApproved && a.RejectionReason == null)
             .Project(a => new()
             {
+                ArticleID = a.ID,
                 AuthorName = a.AuthorName,
                 CreatedOn = a.CreatedOn,
                 Title = a.Title,

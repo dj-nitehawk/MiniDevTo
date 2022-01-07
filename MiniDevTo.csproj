@@ -24,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\Public\GetArticle\" />
         <Folder Include="Features\Public\GetArticleComments\" />
         <Folder Include="Features\Public\AddArticleComment\" />
     </ItemGroup>

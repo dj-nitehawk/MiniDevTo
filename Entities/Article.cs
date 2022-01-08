@@ -1,4 +1,6 @@
-﻿namespace Dom;
+﻿using MongoDB.Bson;
+
+namespace Dom;
 
 public class Article : Entity
 {
@@ -13,8 +15,9 @@ public class Article : Entity
 
     public class Comment
     {
-        public string ID { get; set; }
+        [ObjectId] public string ID { get; set; }
         public string NickName { get; set; }
         public string Content { get; set; }
+        public DateTime DateAdded { get; set; }
     }
 }

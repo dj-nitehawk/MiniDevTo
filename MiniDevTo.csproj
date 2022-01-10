@@ -16,9 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="2.19.0-beta1" />
-        <PackageReference Include="FastEndpoints.Security" Version="2.19.0-beta1" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="2.19.0-beta1" />
+        <PackageReference Include="FastEndpoints" Version="2.19.0" />
+        <PackageReference Include="FastEndpoints.Security" Version="2.19.0" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="2.19.0" />
         <PackageReference Include="MongoDB.Entities" Version="20.26.1" />
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     </ItemGroup>

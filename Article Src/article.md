@@ -42,7 +42,7 @@
 ```bash
 dotnet new web -n MiniDevTo
 dotnet add package FastEndpoints
-dotnet add package FastEndpoints.Swagger
+dotnet add package FastEndpoints.Swashbuckle
 dotnet add package MongoDB.Entities
 ```
 
@@ -139,11 +139,11 @@ now, let's setup swagger so we have a way to interact with our endpoints using a
 ```csharp
 global using FastEndpoints;
 global using FastEndpoints.Validation;
-using FastEndpoints.Swagger; //add this
+using FastEndpoints.Swashbuckle; //add this
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
-builder.Services.AddSwagger(); //add this
+builder.Services.AddSwashbuckle(); //add this
 
 var app = builder.Build();
 app.UseAuthorization();

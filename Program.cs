@@ -3,7 +3,7 @@ global using FastEndpoints.Security;
 global using FastEndpoints.Validation;
 global using MiniDevTo.Auth;
 global using MongoDB.Entities;
-using FastEndpoints.Swagger;
+using FastEndpoints.Swashbuckle;
 using Microsoft.AspNetCore.Http.Json;
 using MiniDevTo.Migrations;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder();
 builder.Services.Configure<JsonOptions>(o => o.SerializerOptions.PropertyNamingPolicy = null); //pascal case for serialization
 builder.Services.AddFastEndpoints();
 builder.Services.AddAuthenticationJWTBearer(builder.Configuration["JwtSigningKey"]);
-builder.Services.AddSwagger();
+builder.Services.AddSwashbuckle();
 
 var app = builder.Build();
 app.UseAuthentication();

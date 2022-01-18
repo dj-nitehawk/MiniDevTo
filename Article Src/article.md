@@ -50,7 +50,7 @@ dotnet add package MongoDB.Entities
 
 ![feature folder structure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/alci7aefu6bc9ib04pho.png)
 
-each last level of the tree is going to be a single endpoint which could either be a command or a query which the ui/frontend of our app can call. queries are prefixed with `Get` as a convention indicating it is a retrieval of data, whereas commands are prefixed with verbs such as `Save`, `Approve`, `Reject`, etc. indicating committing of some state change. this might sound familiar if you've come across `CQRS` before, but we're not separating reads vs. writes here as done in CQRS. instead, we're organizing our our features/endpoints in accordance with `Vertical Slice Architecter`.
+each last level of the tree is going to be a single endpoint which could either be a command or a query which the ui/frontend of our app can call. queries are prefixed with `Get` as a convention indicating it is a retrieval of data, whereas commands are prefixed with verbs such as `Save`, `Approve`, `Reject`, etc. indicating committing of some state change. this might sound familiar if you've come across `CQRS` before, but we're not separating reads vs. writes here as done in CQRS. instead, we're organizing our our features/endpoints in accordance with `Vertical Slice Architecture`.
 
 FastEndpoints is an implementation of [REPR pattern](https://deviq.com/design-patterns/repr-design-pattern). (this will be the last pattern i'll talk about in this article, i promise!)
 

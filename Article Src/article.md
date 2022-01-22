@@ -139,17 +139,17 @@ now, let's setup swagger so we have a way to interact with our endpoints using a
 ```csharp
 global using FastEndpoints;
 global using FastEndpoints.Validation;
-using FastEndpoints.Swashbuckle; //add this
+using FastEndpoints.Swagger; //add this
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
-builder.Services.AddSwashbuckle(); //add this
+builder.Services.AddSwaggerDoc() //add this
 
 var app = builder.Build();
 app.UseAuthorization();
 app.UseFastEndpoints();
-app.UseSwagger(); //add this
-app.UseSwaggerUI(); //add this
+app.UseOpenApi(); //add this
+app.UseSwaggerUi3(c => c.ConfigureDefaults()); //add this
 app.Run();
 ```
 

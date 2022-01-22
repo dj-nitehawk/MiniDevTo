@@ -42,7 +42,7 @@
 ```bash
 dotnet new web -n MiniDevTo
 dotnet add package FastEndpoints
-dotnet add package FastEndpoints.Swashbuckle
+dotnet add package FastEndpoints.Swagger
 dotnet add package MongoDB.Entities
 ```
 

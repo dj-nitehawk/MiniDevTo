@@ -9,7 +9,7 @@ public class Endpoint : EndpointWithoutRequest<List<ArticleModel>>
         Permissions(Allow.Article_Get_Pending_List);
     }
 
-    public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken ct)
     {
         //instead of using a SendAsync() method, you can simply set the Response property.
         //it's just a shortcut/alternative to SendAsync()

@@ -8,7 +8,7 @@ public class Endpoint : EndpointWithoutRequest<List<ArticleModel>>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(EmptyRequest _, CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken ct)
     {
         //alternative for SendAsync()
         Response = await Data.GetRecentArticles();

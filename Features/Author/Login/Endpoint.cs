@@ -22,7 +22,8 @@ public class Endpoint : Endpoint<Request, Response>
         {
             Allow.Article_Get_Own_List,
             Allow.Article_Save_Own,
-            Allow.Author_Update_Own_Profile
+            Allow.Author_Update_Own_Profile,
+            Allow.Author_Delete_Own_Article
         };
 
         Response.FullName = author.fullName;

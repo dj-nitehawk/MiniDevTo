@@ -16,11 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="3.4.0" />
-        <PackageReference Include="FastEndpoints.Security" Version="3.4.0" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="3.4.0" />
-        <PackageReference Include="MongoDB.Entities" Version="20.26.1" />
-        <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+        <PackageReference Include="FastEndpoints" Version="4.2.0" />
+        <PackageReference Include="FastEndpoints.Security" Version="4.2.0" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="4.2.0" />
+        <PackageReference Include="FluentValidation" Version="11.0.1" />
+        <PackageReference Include="MongoDB.Entities" Version="20.26.3" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     </ItemGroup>
 
 </Project>

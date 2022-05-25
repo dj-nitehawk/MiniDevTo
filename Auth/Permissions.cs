@@ -14,5 +14,5 @@ public class Allow : Permissions
     public const string Article_Get_Own_List = "200";
     public const string Article_Save_Own = "201";
     public const string Author_Update_Own_Profile = "202";
-
+    public const string Author_Delete_Own_Article = "202";
 }

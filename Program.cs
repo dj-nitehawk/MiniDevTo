@@ -1,6 +1,6 @@
 global using FastEndpoints;
 global using FastEndpoints.Security;
-global using FastEndpoints.Validation;
+global using FluentValidation;
 global using MiniDevTo.Auth;
 global using MongoDB.Entities;
 using FastEndpoints.Swagger;

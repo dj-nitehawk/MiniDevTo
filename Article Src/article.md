@@ -43,6 +43,7 @@
 dotnet new web -n MiniDevTo
 dotnet add package FastEndpoints
 dotnet add package FastEndpoints.Swagger
+dotnet add package FluentValidation
 dotnet add package MongoDB.Entities
 ```
 
@@ -62,7 +63,7 @@ so, in order to give us some relief from the boring, repetitive task of creating
 first thing's first... let's update `Program.cs` file to look like the following:
 ```csharp
 global using FastEndpoints;
-global using FastEndpoints.Validation;
+global using FluentValidation;
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();

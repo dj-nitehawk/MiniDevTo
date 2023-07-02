@@ -43,7 +43,6 @@
 dotnet new web -n MiniDevTo
 dotnet add package FastEndpoints
 dotnet add package FastEndpoints.Swagger
-dotnet add package FluentValidation
 dotnet add package MongoDB.Entities
 ```
 
@@ -57,7 +56,7 @@ FastEndpoints is an implementation of [REPR pattern](https://deviq.com/design-pa
 
 > The REPR Design Pattern defines web API endpoints as having three components: a Request, an Endpoint, and a Response. It simplifies the frequently-used MVC pattern and is more focused on API development.
 
-so, in order to give us some relief from the boring, repetitive task of creating the multiple class files needed for an endpoint, go ahead and install [this visual studio extension](https://fast-endpoints.com/wiki/VS-Extension.html) provided by FastEndpoints. no worries if you're not using visual studio, you can create those files manually.
+so, in order to give us some relief from the boring, repetitive task of creating the multiple class files needed for an endpoint, go ahead and install [this visual studio extension](https://marketplace.visualstudio.com/items?itemName=dj-nitehawk.FastEndpoints) provided by FastEndpoints. no worries if you're not using visual studio, you can create those files manually.
 
 ### Program.cs
 first thing's first... let's update `Program.cs` file to look like the following:
@@ -95,8 +94,7 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public override void Configure()
     {
-        Verbs(Http.POST);
-        Routes("/author/signup");
+        Post("/author/signup");
         AllowAnonymous();
     }
 
@@ -144,13 +142,12 @@ using FastEndpoints.Swagger; //add this
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
-builder.Services.AddSwaggerDoc() //add this
+builder.Services.SwaggerDocument() //add this
 
 var app = builder.Build();
 app.UseAuthorization();
 app.UseFastEndpoints();
-app.UseOpenApi(); //add this
-app.UseSwaggerUi3(c => c.ConfigureDefaults()); //add this
+app.UseSwaggerGen(); //add this
 app.Run();
 ```
 

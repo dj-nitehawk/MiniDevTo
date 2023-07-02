@@ -1,6 +1,6 @@
 ﻿namespace Public.GetArticleComments;
 
-public class Endpoint : Endpoint<Request, List<CommentModel>>
+public class Endpoint : Endpoint<Request, IEnumerable<CommentModel>>
 {
     public override void Configure()
     {

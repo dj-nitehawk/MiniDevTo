@@ -1,4 +1,6 @@
-﻿namespace Admin.ArticleModeration.GetPendingList;
+﻿using Order = MongoDB.Entities.Order;
+
+namespace Admin.ArticleModeration.GetPendingList;
 
 public static class Data
 {

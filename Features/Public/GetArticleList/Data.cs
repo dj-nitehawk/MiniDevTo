@@ -1,4 +1,6 @@
-﻿namespace Public.GetArticleList;
+﻿using Order = MongoDB.Entities.Order;
+
+namespace Public.GetArticleList;
 
 public static class Data
 {

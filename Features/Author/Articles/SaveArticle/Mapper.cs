@@ -2,7 +2,7 @@
 
 public class Mapper : Mapper<Request, Response, Dom.Article>
 {
-    public override async Task<Dom.Article> ToEntityAsync(Request r)
+    public override async Task<Dom.Article> ToEntityAsync(Request r, CancellationToken ct = default)
     {
         return new Dom.Article()
         {
@@ -10,7 +10,7 @@ public class Mapper : Mapper<Request, Response, Dom.Article>
             AuthorID = r.AuthorID,
             Title = r.Title,
             Content = r.Content,
-            AuthorName = await Data.GetAuthorName(r.AuthorID)
+            AuthorName = await Data.GetAuthorName(r.AuthorID) ?? "Unknown"
         };
     }
 }

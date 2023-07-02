@@ -12,11 +12,8 @@ public class Endpoint : Endpoint<Request, Response>
     {
         var author = await Data.GetAuthor(r.UserName);
 
-        if (author.passwordHash is null)
-            ThrowError("No author found with that username!");
-
-        if (!BCrypt.Net.BCrypt.Verify(r.Password, author.passwordHash))
-            ThrowError("Password is incorrect!");
+        if (author.passwordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, author.passwordHash))
+            ThrowError("Invalid login credentials!");
 
         var authorPermissions = new[]
         {

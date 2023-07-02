@@ -1,6 +1,6 @@
 ﻿namespace Author.Articles.GetMyArticles;
 
-public class Endpoint : Endpoint<Request, Response>
+public class Endpoint : Endpoint<Request, IEnumerable<Article>>
 {
     public override void Configure()
     {
@@ -11,7 +11,6 @@ public class Endpoint : Endpoint<Request, Response>
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
-        Response.Articles = await Data.GetArticlesForAuthor(r.AuthorID);
-        await SendAsync(Response);
+        Response = await Data.GetArticlesForAuthor(r.AuthorID);
     }
 }

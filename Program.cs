@@ -6,17 +6,17 @@ global using MongoDB.Entities;
 using FastEndpoints.Swagger;
 using MiniDevTo.Migrations;
 
-var builder = WebApplication.CreateBuilder();
-builder.Services.AddFastEndpoints();
-builder.Services.AddAuthenticationJWTBearer(builder.Configuration["JwtSigningKey"]);
-builder.Services.AddSwaggerDoc();
+var bld = WebApplication.CreateBuilder();
+bld.Services
+   .AddFastEndpoints()
+   .AddJWTBearerAuth(bld.Configuration["JwtSigningKey"])
+   .SwaggerDocument();
 
-var app = builder.Build();
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseFastEndpoints(s => s.SerializerOptions = o => o.PropertyNamingPolicy = null);
-app.UseOpenApi();
-app.UseSwaggerUi3(c => c.ConfigureDefaults());
+var app = bld.Build();
+app.UseAuthentication()
+   .UseAuthorization()
+   .UseFastEndpoints(c => c.Serializer.Options.PropertyNamingPolicy = null)
+   .UseSwaggerGen();
 
 await DB.InitAsync(database: "MiniDevTo", host: "localhost");
 _001_seed_initial_admin_account.SuperAdminPassword = app.Configuration["SuperAdminPassword"];

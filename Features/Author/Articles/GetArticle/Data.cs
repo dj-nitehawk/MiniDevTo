@@ -2,7 +2,7 @@
 
 public static class Data
 {
-    internal static Task<Response> GetArticle(string articleID)
+    internal static Task<Response?> GetArticle(string articleID)
     {
         return DB
             .Find<Dom.Article, Response>()

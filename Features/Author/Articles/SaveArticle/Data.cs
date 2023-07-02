@@ -2,7 +2,7 @@
 
 public static class Data
 {
-    internal static Task<string> GetAuthorName(string authorID)
+    internal static Task<string?> GetAuthorName(string authorID)
     {
         return DB
             .Find<Dom.Author, string>()
@@ -37,7 +37,6 @@ public static class Data
             if (res?.MatchedCount != 1)
                 return null;
         }
-
         return article.ID;
     }
 }

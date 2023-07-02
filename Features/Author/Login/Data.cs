@@ -17,6 +17,5 @@ public static class Data
     internal record struct Author(
         string authorID,
         string fullName,
-        string passwordHash)
-    { }
+        string passwordHash);
 }

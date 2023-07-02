@@ -10,11 +10,11 @@ public static class Data
             .ExecuteAnyAsync();
     }
 
-    internal static Task<bool> UserNameIsTaken(string loweCaseUserName)
+    internal static Task<bool> UserNameIsTaken(string lowerCaseUserName)
     {
         return DB
             .Find<Dom.Author>()
-            .Match(a => a.UserName.ToLower() == loweCaseUserName)
+            .Match(a => a.UserName.ToLower() == lowerCaseUserName)
             .ExecuteAnyAsync();
     }
 

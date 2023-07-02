@@ -4,7 +4,7 @@ namespace Author.Signup;
 
 public class Mapper : Mapper<Request, Response, Dom.Author>
 {
-    private static readonly CultureInfo _culture = new CultureInfo("en-US");
+    private static readonly CultureInfo _culture = new("en-US");
 
     public override Dom.Author ToEntity(Request r) => new()
     {

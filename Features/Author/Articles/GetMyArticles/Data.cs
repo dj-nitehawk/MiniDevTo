@@ -2,10 +2,10 @@
 
 public static class Data
 {
-    internal static Task<List<Response.Article>?> GetArticlesForAuthor(string authorID)
+    internal static Task<List<Article>> GetArticlesForAuthor(string authorID)
     {
         return DB
-            .Find<Dom.Article, Response.Article>()
+            .Find<Dom.Article, Article>()
             .Match(a => a.AuthorID == authorID)
             .Project(a => new()
             {

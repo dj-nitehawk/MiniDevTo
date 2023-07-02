@@ -10,6 +10,11 @@ public class Endpoint : Endpoint<Request, Response>
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
-        Response = await Data.GetArticle(r.ArticleID);
+        var article = await Data.GetArticle(r.ArticleID);
+
+        if (article is null)
+            await SendNotFoundAsync();
+        else
+            await SendAsync(article);
     }
 }

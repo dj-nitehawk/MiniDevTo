@@ -12,11 +12,8 @@ public class Endpoint : Endpoint<Request, Response>
     {
         var (adminID, passwordHash) = await Data.GetAdmin(r.UserName);
 
-        if (passwordHash is null)
-            ThrowError("No admin account by that username!");
-
-        if (!BCrypt.Net.BCrypt.Verify(r.Password, passwordHash))
-            ThrowError("Password is incorrect!");
+        if (passwordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, passwordHash))
+            ThrowError("Invalid login details!");
 
         var adminPemissions = new[]
         {
@@ -35,7 +32,5 @@ public class Endpoint : Endpoint<Request, Response>
             expireAt: DateTime.UtcNow.AddHours(4),
             permissions: adminPemissions,
             claims: (Claim.AdminID, adminID));
-
-        await SendAsync(Response);
     }
 }

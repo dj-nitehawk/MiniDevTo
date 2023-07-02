@@ -8,26 +8,20 @@ public class Request
     public string AuthorID { get; set; }
 }
 
-public class Response
+public class Article
 {
-    public IEnumerable<Article>? Articles { get; set; }
-
-    public class Article
+    public string ArticleID { get; set; }
+    public string Title { get; set; }
+    public string? RejectionReason { get; set; }
+    public string ApprovalStatus
     {
-        public string ArticleID { get; set; }
-        public string Title { get; set; }
-        public string? RejectionReason { get; set; }
-        public string ApprovalStatus
+        get
         {
-            get
-            {
-                if (IsApproved) return "Approved";
-                return RejectionReason is null ? "Pending" : "Rejected";
-            }
+            if (IsApproved) return "Approved";
+            return RejectionReason is null ? "Pending" : "Rejected";
         }
-
-        [JsonIgnore]
-        public bool IsApproved { get; set; }
-
     }
+
+    [JsonIgnore]
+    public bool IsApproved { get; set; }
 }

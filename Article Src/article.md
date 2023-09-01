@@ -291,9 +291,9 @@ public override async Task HandleAsync(Request r, CancellationToken c)
     });
 }
 ```
- First, we're using the `ToEntity()` method on the `Map` property of the endpoint class to transform the request dto into an `Author` [domain entity](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Entities/Author.cs). The logic for mapping is in the `Mapper.cs` file which can be [found here](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Features/Author/Signup/Mapper.cs). you can read more about the mapper class [here](https://fast-endpoints.com/docs/domain-entity-mapping#mapping-logic-in-a-separate-class).
+ First, we're using the `ToEntity()` method on the `Map` property of the endpoint class to transform the request dto into an `Author` [domain entity](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Source/Entities/Author.cs). The logic for mapping is in the `Mapper.cs` file which can be [found here](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Source/Features/Author/Signup/Mapper.cs). you can read more about the mapper class [here](https://fast-endpoints.com/docs/domain-entity-mapping#mapping-logic-in-a-separate-class).
 
-Then we're asking the database if this email address is already taken by someone ([code here](https://github.com/dj-nitehawk/MiniDevTo/blob/main/Features/Author/Signup/Data.cs)). If it's already taken we're adding a validation error to the collection of errors of the endpoint using the `AddError()` method.
+Then we're asking the database if this email address is already taken by someone ([code here](https://github.com/dj-nitehawk/MiniDevTo/blob/Source/main/Features/Author/Signup/Data.cs)). If it's already taken we're adding a validation error to the collection of errors of the endpoint using the `AddError()` method.
 
 Next, we're asking the db if the username is already taken by someone and add an error if it's taken.
 

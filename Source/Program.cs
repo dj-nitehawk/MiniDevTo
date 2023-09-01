@@ -1,8 +1,3 @@
-global using FastEndpoints;
-global using FastEndpoints.Security;
-global using FluentValidation;
-global using MiniDevTo.Auth;
-global using MongoDB.Entities;
 using FastEndpoints.Swagger;
 using MiniDevTo.Migrations;
 
@@ -18,8 +13,10 @@ app.UseAuthentication()
    .UseFastEndpoints(c => c.Serializer.Options.PropertyNamingPolicy = null)
    .UseSwaggerGen();
 
-await DB.InitAsync(database: "MiniDevTo", host: "localhost");
+await DB.InitAsync(database: app.Configuration["DbName"], host: "localhost");
 _001_seed_initial_admin_account.SuperAdminPassword = app.Configuration["SuperAdminPassword"];
 await DB.MigrateAsync();
 
 app.Run();
+
+public partial class Program { }

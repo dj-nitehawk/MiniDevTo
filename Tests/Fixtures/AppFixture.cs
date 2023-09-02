@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS8618
+using Bogus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -11,6 +12,7 @@ namespace Tests.Fixtures;
 public abstract class TestBase : IClassFixture<AppFixture>
 {
     protected AppFixture App { get; init; }
+    protected Faker F { get; } = new Faker();
 
     protected TestBase(AppFixture fixture)
     {

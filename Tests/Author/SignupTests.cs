@@ -26,11 +26,11 @@ public class SignupTests : TestBase
     {
         var req = new Request
         {
-            UserName = Guid.NewGuid().ToString("N"),
-            Password = Guid.NewGuid().ToString("N"),
-            Email = $"{Guid.NewGuid():N}@email.com",
-            FirstName = "first",
-            LastName = "last"
+            FirstName = F.Name.FirstName(),
+            LastName = F.Name.LastName(),
+            UserName = F.Internet.UserName(),
+            Email = F.Internet.Email(),
+            Password = F.Internet.Password()
         };
 
         var (rsp1, _) = await App.GuestClient.POSTAsync<Endpoint, Request, Response>(req);
@@ -41,5 +41,23 @@ public class SignupTests : TestBase
         res2!.Errors.Keys.Should().Equal(
             nameof(Request.Email),
             nameof(Request.UserName));
+    }
+
+    [Fact]
+    public async Task SignUp_Success()
+    {
+        var req = new Request
+        {
+            FirstName = F.Name.FirstName(),
+            LastName = F.Name.LastName(),
+            UserName = F.Internet.UserName(),
+            Email = F.Internet.Email(),
+            Password = F.Internet.Password()
+        };
+
+        var (rsp, res) = await App.GuestClient.POSTAsync<Endpoint, Request, Response>(req);
+
+        rsp.IsSuccessStatusCode.Should().BeTrue();
+        res!.Message.Should().Be("Thank you for signing up as an author!");
     }
 }

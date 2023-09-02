@@ -1,40 +1,44 @@
 ﻿using Author.Login;
 using MiniDevTo.Auth;
+using MongoDB.Entities;
 
 namespace Author;
 
-public class LoginTests : TestBase
+public class LoginTests : TestBase, IAsyncLifetime
 {
     public LoginTests(AppFixture fixture) : base(fixture) { }
 
-    private static readonly string _userName = Guid.NewGuid().ToString("N");
-    private static readonly string _password = Guid.NewGuid().ToString("N");
+    private static string _username = default!;
+    private static string _password = default!;
+    private static string _fullName = default!;
 
-    [Fact, Priority(1)]
-    public async Task SignUp_Success()
+    public async Task InitializeAsync()
     {
-        var req = new Signup.Request
+        if (_username is null && _password is null)
         {
-            UserName = _userName,
-            Password = _password,
-            Email = $"{Guid.NewGuid():N}@blah.com",
-            FirstName = "first",
-            LastName = "last"
-        };
+            _username = F.Internet.UserName();
+            _password = F.Internet.Password(10);
 
-        var (rsp, res) = await App.GuestClient.POSTAsync<Signup.Endpoint, Signup.Request, Signup.Response>(req);
-
-        rsp.IsSuccessStatusCode.Should().BeTrue();
-        res!.Message.Should().Be("Thank you for signing up as an author!");
+            var author = new Dom.Author
+            {
+                FirstName = F.Name.FirstName(),
+                LastName = F.Name.LastName(),
+                UserName = _username,
+                Email = F.Internet.Email(),
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(_password)
+            };
+            await author.SaveAsync();
+            _fullName = author.FirstName + " " + author.LastName;
+        }
     }
 
-    [Fact, Priority(2)]
+    [Fact]
     public async Task Invalid_Login_Credentials()
     {
         var req = new Request
         {
-            UserName = _userName,
-            Password = Guid.NewGuid().ToString()
+            UserName = _username,
+            Password = F.Internet.Password()
         };
 
         var (rsp, res) = await App.AuthorClient.POSTAsync<Endpoint, Request, ErrorResponse>(req);
@@ -43,12 +47,12 @@ public class LoginTests : TestBase
         res!.Errors["GeneralErrors"][0].Should().Be("Invalid login credentials!");
     }
 
-    [Fact, Priority(3)]
+    [Fact]
     public async Task Login_Success()
     {
         var req = new Request
         {
-            UserName = _userName,
+            UserName = _username,
             Password = _password
         };
 
@@ -65,7 +69,9 @@ public class LoginTests : TestBase
         };
         var permissionNames = new Allow().NamesFor(permissionCodes);
         res!.UserPermissions.Should().Equal(permissionNames);
-        res.FullName.Should().Be("First Last");
+        res.FullName.Should().Be(_fullName);
         res.Token.Value.Should().Contain(".").And.Subject.Length.Should().BeGreaterThan(10);
     }
+
+    public Task DisposeAsync() => Task.CompletedTask;
 }

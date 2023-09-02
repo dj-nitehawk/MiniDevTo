@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 namespace Tests.Fixtures;
 
 [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
-public abstract class TestBase : IClassFixture<AppFixture>
+public abstract class TestBase : IClassFixture<AppFixture>, IAsyncLifetime
 {
     protected AppFixture App { get; init; }
     protected Faker F { get; } = new Faker();
@@ -18,6 +18,10 @@ public abstract class TestBase : IClassFixture<AppFixture>
     {
         App = fixture;
     }
+
+    public virtual Task InitializeAsync() => Task.CompletedTask;
+
+    public virtual Task DisposeAsync() => Task.CompletedTask;
 }
 
 public sealed class AppFixture : WebApplicationFactory<Program>

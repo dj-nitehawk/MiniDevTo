@@ -4,7 +4,7 @@ using MongoDB.Entities;
 
 namespace Author;
 
-public class LoginTests : TestBase, IAsyncLifetime
+public class LoginTests : TestBase
 {
     public LoginTests(AppFixture fixture) : base(fixture) { }
 
@@ -12,7 +12,7 @@ public class LoginTests : TestBase, IAsyncLifetime
     private static string _password = default!;
     private static string _fullName = default!;
 
-    public async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
         if (_username is null && _password is null)
         {
@@ -73,6 +73,4 @@ public class LoginTests : TestBase, IAsyncLifetime
         res.FullName.Should().Be(_fullName);
         res.Token.Value.Should().Contain(".").And.Subject.Length.Should().BeGreaterThan(10);
     }
-
-    public Task DisposeAsync() => Task.CompletedTask;
 }

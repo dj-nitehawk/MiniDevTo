@@ -10,7 +10,7 @@ public static class Data
             .Project(a => new()
             {
                 IsApproved = a.IsApproved,
-                ArticleID = a.ID,
+                ArticleID = a.ID!,
                 RejectionReason = a.RejectionReason,
                 Title = a.Title
             })

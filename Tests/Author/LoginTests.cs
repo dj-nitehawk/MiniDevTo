@@ -1,36 +1,15 @@
 ﻿using Author.Login;
 using MiniDevTo.Auth;
-using MongoDB.Entities;
 
 namespace Author;
 
-public class LoginTests : TestBase
+public class LoginTests : TestBase, IClassFixture<AuthorFixture>
 {
-    public LoginTests(AppFixture fixture) : base(fixture) { }
+    private readonly AuthorFixture _seed;
 
-    private static string _username = default!;
-    private static string _password = default!;
-    private static string _fullName = default!;
-
-    public override async Task InitializeAsync()
+    public LoginTests(AppFixture app, AuthorFixture author) : base(app)
     {
-        if (_username is null && _password is null)
-        {
-            _username = F.Internet.UserName();
-            _password = F.Internet.Password(10);
-
-            var author = new Dom.Author
-            {
-                FirstName = F.Name.FirstName(),
-                LastName = F.Name.LastName(),
-                UserName = _username,
-                Email = F.Internet.Email(),
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(_password),
-                SignUpDate = F.Date.RecentDateOnly()
-            };
-            await author.SaveAsync();
-            _fullName = author.FirstName + " " + author.LastName;
-        }
+        _seed = author;
     }
 
     [Fact]
@@ -38,8 +17,8 @@ public class LoginTests : TestBase
     {
         var req = new Request
         {
-            UserName = _username,
-            Password = F.Internet.Password()
+            UserName = _seed.Author.UserName,
+            Password = F.Internet.Password() //incorrect password
         };
 
         var (rsp, res) = await App.AuthorClient.POSTAsync<Endpoint, Request, ErrorResponse>(req);
@@ -53,8 +32,8 @@ public class LoginTests : TestBase
     {
         var req = new Request
         {
-            UserName = _username,
-            Password = _password
+            UserName = _seed.Author.UserName,
+            Password = _seed.Password //correct password
         };
 
         var (rsp, res) = await App.AuthorClient.POSTAsync<Endpoint, Request, Response>(req);
@@ -70,7 +49,7 @@ public class LoginTests : TestBase
         };
         var permissionNames = new Allow().NamesFor(permissionCodes);
         res!.UserPermissions.Should().Equal(permissionNames);
-        res.FullName.Should().Be(_fullName);
+        res.FullName.Should().Be(_seed.Author.FirstName + " " + _seed.Author.LastName);
         res.Token.Value.Should().Contain(".").And.Subject.Length.Should().BeGreaterThan(10);
     }
 }

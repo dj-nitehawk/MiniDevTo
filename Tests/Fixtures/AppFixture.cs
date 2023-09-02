@@ -14,9 +14,9 @@ public abstract class TestBase : IClassFixture<AppFixture>, IAsyncLifetime
     protected AppFixture App { get; init; }
     protected Faker F { get; } = new Faker();
 
-    protected TestBase(AppFixture fixture)
+    protected TestBase(AppFixture app)
     {
-        App = fixture;
+        App = app;
     }
 
     public virtual Task InitializeAsync() => Task.CompletedTask;

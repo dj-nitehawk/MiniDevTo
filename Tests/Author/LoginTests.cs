@@ -25,7 +25,8 @@ public class LoginTests : TestBase, IAsyncLifetime
                 LastName = F.Name.LastName(),
                 UserName = _username,
                 Email = F.Internet.Email(),
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(_password)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(_password),
+                SignUpDate = F.Date.RecentDateOnly()
             };
             await author.SaveAsync();
             _fullName = author.FirstName + " " + author.LastName;

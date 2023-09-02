@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Xunit.Abstractions;
 
 namespace Tests.Fixtures;
 
@@ -39,8 +38,6 @@ public abstract class TestFixture<TProgram> : IAsyncLifetime, ITestFixture where
     private static readonly Faker _faker = new();
     private static WebApplicationFactory<TProgram> _app;
 
-    private readonly IMessageSink _messageSink;
-
     static TestFixture()
     {
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Testing");
@@ -48,13 +45,12 @@ public abstract class TestFixture<TProgram> : IAsyncLifetime, ITestFixture where
 
     protected TestFixture(IMessageSink s)
     {
-        _messageSink = s;
         _app ??= new WebApplicationFactory<TProgram>().WithWebHostBuilder(b =>
-        {
-            b.ConfigureLogging(l => l.ClearProviders().AddXUnit(_messageSink));
-            ConfigureApp(b);
-            b.ConfigureTestServices(ConfigureServices);
-        });
+            {
+                b.ConfigureLogging(l => l.AddXUnit(s));
+                b.ConfigureTestServices(ConfigureServices);
+                ConfigureApp(b);
+            });
         Client = _app.CreateClient();
     }
 

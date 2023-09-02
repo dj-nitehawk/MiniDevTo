@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MiniDevTo.Auth;
 using MongoDB.Entities;
-using Xunit.Abstractions;
 
 namespace Tests.Author.Articles;
 

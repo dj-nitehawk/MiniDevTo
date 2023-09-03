@@ -1,6 +1,5 @@
 ﻿using Author.Login;
 using MiniDevTo.Auth;
-using Xunit.Abstractions;
 
 namespace Tests.Author.Login;
 

@@ -1,6 +1,4 @@
-﻿using Xunit.Abstractions;
-
-namespace Tests.Author.Signup;
+﻿namespace Tests.Author.Signup;
 
 public class Fixture : TestFixture<Program>
 {

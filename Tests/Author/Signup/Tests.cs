@@ -1,6 +1,5 @@
 using Author.Signup;
 using MongoDB.Entities;
-using Xunit.Abstractions;
 
 namespace Tests.Author.Signup;
 

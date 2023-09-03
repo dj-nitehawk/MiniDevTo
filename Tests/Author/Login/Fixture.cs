@@ -1,5 +1,4 @@
 ﻿using MongoDB.Entities;
-using Xunit.Abstractions;
 
 namespace Tests.Author.Login;
 

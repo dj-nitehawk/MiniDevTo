@@ -1,5 +1,4 @@
-﻿using MongoDB.Entities;
-using Delete = Author.Articles.DeleteArticle;
+﻿using Delete = Author.Articles.DeleteArticle;
 using Get = Author.Articles.GetArticle;
 using List = Author.Articles.GetMyArticles;
 using Save = Author.Articles.SaveArticle;

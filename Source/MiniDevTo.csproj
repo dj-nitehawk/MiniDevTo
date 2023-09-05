@@ -8,9 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.16.0" />
-        <PackageReference Include="FastEndpoints.Security" Version="5.16.0" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.16.0" />
+        <PackageReference Include="FastEndpoints" Version="5.17.1.1" />
+        <PackageReference Include="FastEndpoints.Security" Version="5.17.1.1" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.17.1.1" />
         <PackageReference Include="MongoDB.Entities" Version="22.1.0" />
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     </ItemGroup>

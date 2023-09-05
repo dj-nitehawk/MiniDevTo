@@ -13,7 +13,7 @@ app.UseAuthentication()
    .UseFastEndpoints(c => c.Serializer.Options.PropertyNamingPolicy = null)
    .UseSwaggerGen();
 
-await DB.InitAsync(database: app.Configuration["DbName"], host: "localhost");
+await DB.InitAsync(app.Configuration["DbName"], "localhost");
 _001_seed_initial_admin_account.SuperAdminPassword = app.Configuration["SuperAdminPassword"];
 await DB.MigrateAsync();
 

@@ -15,21 +15,13 @@ public class Endpoint : Endpoint<Request, Response>
         if (author?.passwordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, author.passwordHash))
             ThrowError("Invalid login credentials!");
 
-        var authorPermissions = new[]
-        {
-            Allow.Article_Get_Own_List,
-            Allow.Article_Save_Own,
-            Allow.Author_Update_Own_Profile,
-            Allow.Author_Delete_Own_Article
-        };
-
         Response.FullName = author.fullName;
-        Response.UserPermissions = new Allow().NamesFor(authorPermissions);
+        Response.UserPermissions = Allow.NamesFor(PermCodes.Author);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
         Response.Token.Value = JWTBearer.CreateToken(
             signingKey: Config["JwtSigningKey"],
             expireAt: DateTime.UtcNow.AddHours(4),
-            permissions: authorPermissions,
+            permissions: PermCodes.Author,
             claims: (Claim.AuthorID, author.authorID));
 
         await SendAsync(Response);

@@ -7,6 +7,7 @@ public class Endpoint : EndpointWithoutRequest<List<ArticleModel>>
         Get("/admin/article-moderation/get-pending-list");
         Claims(Claim.AdminID);
         Permissions(Allow.Article_Get_Pending_List);
+        AccessControlKey("Article_Get_Pending_List");
     }
 
     public override async Task HandleAsync(CancellationToken ct)

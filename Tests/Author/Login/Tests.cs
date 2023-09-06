@@ -35,14 +35,7 @@ public class Tests : TestClass<Fixture>
 
         rsp.IsSuccessStatusCode.Should().BeTrue();
 
-        var permissionCodes = new[]
-        {
-            Allow.Article_Get_Own_List,
-            Allow.Article_Save_Own,
-            Allow.Author_Update_Own_Profile,
-            Allow.Author_Delete_Own_Article
-        };
-        var permissionNames = new Allow().NamesFor(permissionCodes);
+        var permissionNames = Allow.NamesFor(PermCodes.Author);
         res!.UserPermissions.Should().Equal(permissionNames);
         res.FullName.Should().Be(Fixture.Author.FirstName + " " + Fixture.Author.LastName);
         res.Token.Value.Should().Contain(".").And.Subject.Length.Should().BeGreaterThan(10);

@@ -15,22 +15,13 @@ public class Endpoint : Endpoint<Request, Response>
         if (passwordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, passwordHash))
             ThrowError("Invalid login details!");
 
-        var adminPemissions = new[]
-        {
-            Allow.Article_Moderate,
-            Allow.Article_Delete,
-            Allow.Article_Get_Pending_List,
-            Allow.Article_Update,
-            Allow.Author_Update_Profile
-        };
-
         Response.UserName = r.UserName;
-        Response.UserPermissions = new Allow().NamesFor(adminPemissions);
+        Response.UserPermissions = Allow.NamesFor(PermCodes.Admin);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
         Response.Token.Value = JWTBearer.CreateToken(
             signingKey: Config["JwtSigningKey"],
             expireAt: DateTime.UtcNow.AddHours(4),
-            permissions: adminPemissions,
+            permissions: PermCodes.Admin,
             claims: (Claim.AdminID, adminID));
     }
 }

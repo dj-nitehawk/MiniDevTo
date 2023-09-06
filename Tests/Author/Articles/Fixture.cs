@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MiniDevTo.Auth;
-using MongoDB.Entities;
 
 namespace Tests.Author.Articles;
 
@@ -24,10 +23,7 @@ public class Fixture : TestFixture<Program>
         var bearerToken = JWTBearer.CreateToken(jwtKey!, u =>
         {
             u[Claim.AuthorID] = _authorID;
-            u.Permissions.Add(
-                Allow.Article_Save_Own,
-                Allow.Article_Get_Own_List,
-                Allow.Author_Delete_Own_Article);
+            u.Permissions.Add(PermCodes.Author);
         });
 
         Client = CreateClient(c =>

@@ -1,5 +1,4 @@
 using Author.Signup;
-using MongoDB.Entities;
 
 namespace Tests.Author.Signup;
 
@@ -14,7 +13,7 @@ public class Tests : TestClass<Fixture>
         var (rsp, res) = await Fixture.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);
 
         rsp.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        res!.Errors.Count.Should().Be(4);
+        res.Errors.Count.Should().Be(4);
         res.Errors.Keys.Should().Equal(
             nameof(Request.FirstName),
             nameof(Request.Email),
@@ -32,7 +31,7 @@ public class Tests : TestClass<Fixture>
 
         var (rsp2, res2) = await Fixture.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);
         rsp2.IsSuccessStatusCode.Should().BeFalse();
-        res2!.Errors.Keys.Should().Equal(
+        res2.Errors.Keys.Should().Equal(
             nameof(Request.Email),
             nameof(Request.UserName));
 
@@ -47,7 +46,7 @@ public class Tests : TestClass<Fixture>
         var (rsp, res) = await Fixture.Client.POSTAsync<Endpoint, Request, Response>(req);
 
         rsp.IsSuccessStatusCode.Should().BeTrue();
-        res!.Message.Should().Be("Thank you for signing up as an author!");
+        res.Message.Should().Be("Thank you for signing up as an author!");
 
         await DB.DeleteAsync<Dom.Author>(a => a.UserName == req.UserName);
     }

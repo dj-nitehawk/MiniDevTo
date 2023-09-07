@@ -21,7 +21,7 @@ public class Tests : TestClass<Fixture>
         var (rsp, res) = await Fixture.Client.POSTAsync<Save.Endpoint, Save.Request, ErrorResponse>(req);
 
         rsp.IsSuccessStatusCode.Should().BeFalse();
-        res!.Errors.Count.Should().Be(2);
+        res.Errors.Count.Should().Be(2);
         res.Errors.Keys.Should().Equal(
             nameof(Save.Request.Title),
             nameof(Save.Request.Content));
@@ -37,7 +37,7 @@ public class Tests : TestClass<Fixture>
             var (rsp, res) = await Fixture.Client.POSTAsync<Save.Endpoint, Save.Request, Save.Response>(req);
 
             rsp.IsSuccessStatusCode.Should().BeTrue();
-            res!.Message.Should().Be("Article saved!");
+            res.Message.Should().Be("Article saved!");
             res.ArticleID.Should().NotBeNullOrEmpty();
 
             Fixture.ArticleIDs.Add(res.ArticleID!);
@@ -52,8 +52,8 @@ public class Tests : TestClass<Fixture>
         var (rsp, res) = await Fixture.Client.GETAsync<List.Endpoint, IEnumerable<List.Article>>();
 
         rsp.IsSuccessStatusCode.Should().BeTrue();
-        res!.Count().Should().Be(3);
-        res!.Select(a => a.ArticleID).Should().Equal(Fixture.ArticleIDs);
+        res.Count().Should().Be(3);
+        res.Select(a => a.ArticleID).Should().Equal(Fixture.ArticleIDs);
     }
 
     [Fact, Priority(3)]
@@ -71,7 +71,7 @@ public class Tests : TestClass<Fixture>
         var article = await DB.Find<Dom.Article>().OneAsync(articleID);
         article.Should().NotBeNull();
 
-        res1!.ArticleID.Should().Be(article!.ID);
+        res1.ArticleID.Should().Be(article.ID);
         res1.Title.Should().Be(article.Title);
         res1.Content.Should().Be(article.Content);
 
@@ -93,7 +93,7 @@ public class Tests : TestClass<Fixture>
         });
 
         rsp.IsSuccessStatusCode.Should().BeTrue();
-        res!.Message.Should().Be("Article Deleted!");
+        res.Message.Should().Be("Article Deleted!");
 
         var exists = await DB
             .Find<Dom.Article>()

@@ -6,8 +6,8 @@ public class Endpoint : Endpoint<Request>
     {
         Post("/admin/article-moderation/approve");
         Claims(Claim.AdminID);
-        Permissions(Allow.Article_Moderate_Approve);
-        AccessControlKey("Article_Moderate_Approve");
+        AccessControlKey("Article_Moderate_Approve", Apply.ToThisEndpoint);
+        //Permissions(Allow.Article_Moderate_Approve);
     }
 
     public override async Task HandleAsync(Request r, CancellationToken c)

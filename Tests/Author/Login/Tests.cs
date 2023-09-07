@@ -36,7 +36,7 @@ public class Tests : TestClass<Fixture>
         rsp.IsSuccessStatusCode.Should().BeTrue();
 
         var permissionNames = Allow.NamesFor(PermCodes.Author);
-        res!.UserPermissions.Should().Equal(permissionNames);
+        res.UserPermissions.Should().Equal(permissionNames);
         res.FullName.Should().Be(Fixture.Author.FirstName + " " + Fixture.Author.LastName);
         res.Token.Value.Should().Contain(".").And.Subject.Length.Should().BeGreaterThan(10);
     }

@@ -9,7 +9,7 @@ public static class Data
             .MatchID(articleID)
             .Project(a => new()
             {
-                ArticleID = a.ID,
+                ArticleID = a.ID!,
                 AuthorName = a.AuthorName,
                 CommentCount = a.Comments.Length,
                 Content = a.Content,

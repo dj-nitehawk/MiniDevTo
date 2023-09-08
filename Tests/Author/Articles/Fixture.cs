@@ -23,7 +23,7 @@ public class Fixture : TestFixture<Program>
         var bearerToken = JWTBearer.CreateToken(jwtKey!, u =>
         {
             u[Claim.AuthorID] = _authorID;
-            u.Permissions.Add(PermCodes.Author);
+            u.Permissions.AddRange(Allow.Author);
         });
 
         Client = CreateClient(c =>

@@ -16,12 +16,12 @@ public class Endpoint : Endpoint<Request, Response>
             ThrowError("Invalid login details!");
 
         Response.UserName = r.UserName;
-        Response.UserPermissions = Allow.NamesFor(PermCodes.Admin);
+        Response.UserPermissions = Allow.NamesFor(Allow.Admin);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
         Response.Token.Value = JWTBearer.CreateToken(
             signingKey: Config["JwtSigningKey"],
             expireAt: DateTime.UtcNow.AddHours(4),
-            permissions: PermCodes.Admin,
+            permissions: Allow.Admin,
             claims: (Claim.AdminID, adminID));
     }
 }

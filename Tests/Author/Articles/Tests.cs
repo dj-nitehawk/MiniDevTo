@@ -71,7 +71,7 @@ public class Tests : TestClass<Fixture>
         var article = await DB.Find<Dom.Article>().OneAsync(articleID);
         article.Should().NotBeNull();
 
-        res1.ArticleID.Should().Be(article.ID);
+        res1.ArticleID.Should().Be(article!.ID);
         res1.Title.Should().Be(article.Title);
         res1.Content.Should().Be(article.Content);
 

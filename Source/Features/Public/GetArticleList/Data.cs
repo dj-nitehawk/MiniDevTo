@@ -12,7 +12,7 @@ public static class Data
             .Sort(a => a.CreatedOn, Order.Descending)
             .Project(a => new()
             {
-                ArticleID = a.ID,
+                ArticleID = a.ID!,
                 AuthorName = a.AuthorName,
                 CommentCount = a.Comments.Length,
                 Title = a.Title,

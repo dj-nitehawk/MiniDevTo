@@ -7,7 +7,7 @@ public static class Data
         return DB
             .Find<Dom.Admin, (string adminID, string passwordHash)>()
             .Match(a => a.UserName == userName)
-            .Project(a => new(a.ID, a.PasswordHash))
+            .Project(a => new(a.ID!, a.PasswordHash))
             .ExecuteSingleAsync();
     }
 }

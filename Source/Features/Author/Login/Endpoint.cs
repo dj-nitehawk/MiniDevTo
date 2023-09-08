@@ -16,12 +16,12 @@ public class Endpoint : Endpoint<Request, Response>
             ThrowError("Invalid login credentials!");
 
         Response.FullName = author.fullName;
-        Response.UserPermissions = Allow.NamesFor(PermCodes.Author);
+        Response.UserPermissions = Allow.NamesFor(Allow.Author);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
         Response.Token.Value = JWTBearer.CreateToken(
             signingKey: Config["JwtSigningKey"],
             expireAt: DateTime.UtcNow.AddHours(4),
-            permissions: PermCodes.Author,
+            permissions: Allow.Author,
             claims: (Claim.AuthorID, author.authorID));
 
         await SendAsync(Response);

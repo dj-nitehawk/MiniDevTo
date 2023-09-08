@@ -6,8 +6,10 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
     {
         Post("/author/articles/save-article");
         Claims(Claim.AuthorID);
-        Permissions(Allow.Article_Save_Own);
-        AccessControlKey("Article_Save_Own");
+        AccessControl(
+            keyName: "Article_Save_Own",
+            behavior: Apply.ToThisEndpoint,
+            groupNames: "Author");
     }
 
     public override async Task HandleAsync(Request r, CancellationToken c)

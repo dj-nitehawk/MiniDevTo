@@ -6,8 +6,10 @@ public class Endpoint : Endpoint<Request, Response>
     {
         Delete("/author/articles/delete-article/{ArticleID}");
         Claims(Claim.AuthorID);
-        Permissions(Allow.Author_Delete_Own_Article);
-        AccessControlKey("Author_Delete_Own_Article");
+        AccessControl(
+            keyName: "Author_Delete_Own_Article",
+            behavior: Apply.ToThisEndpoint,
+            groupNames: "Author");
     }
 
     public override async Task HandleAsync(Request r, CancellationToken c)

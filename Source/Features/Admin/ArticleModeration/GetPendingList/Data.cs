@@ -11,7 +11,7 @@ public static class Data
             .Match(a => !a.IsApproved && a.RejectionReason == null)
             .Project(a => new()
             {
-                ArticleID = a.ID,
+                ArticleID = a.ID!,
                 AuthorName = a.AuthorName,
                 CreatedOn = a.CreatedOn,
                 Title = a.Title,

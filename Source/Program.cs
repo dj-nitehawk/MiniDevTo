@@ -3,6 +3,7 @@ using MiniDevTo.Migrations;
 
 var bld = WebApplication.CreateBuilder();
 bld.Services
+   .AddAuthorization()
    .AddFastEndpoints()
    .AddJWTBearerAuth(bld.Configuration["JwtSigningKey"])
    .SwaggerDocument();

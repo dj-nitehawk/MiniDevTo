@@ -1,4 +1,4 @@
-**The goal of this article** is to introduce you to an alternative, more developer friendly way of building Web APIs with ASP.NET 7 instead of the more commonly used MVC controllers.
+**The goal of this article** is to introduce you to an alternative, more developer friendly way of building Web APIs with ASP.NET 8 instead of the more commonly used MVC controllers.
 
 **We will be exploring** the open source library [FastEndpoints](https://fast-endpoints.com/) which is built on top of Minimal APIs introduced in .NET 6, where we can get all the performance benefits without the pain-points of Minimal APIs. The resulting code-base is cleaner to navigate and project maintainability becomes a breeze when combined with [Vertical Slice Architecture](https://www.ghyston.com/insights/architecting-for-maintainability-through-vertical-slices), no matter the size or complexity of the project, because the framework stays out of your way so you can focus on the engineering & functional aspects of your systems.
 
@@ -29,7 +29,7 @@
   - Post a comment on an article
 
 **The tech stack** used will be the following:
-- *Base framework:* ASP.NET 7
+- *Base framework:* ASP.NET 8
 - *Endpoint framework:* FastEndpoints
 - *Authentication scheme:* JWT Bearer
 - *Input validation:* FluentValidations
@@ -68,7 +68,6 @@ var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
 
 var app = builder.Build();
-app.UseAuthorization();
 app.UseFastEndpoints();
 app.Run();
 ```
@@ -145,7 +144,6 @@ builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument() //add this
 
 var app = builder.Build();
-app.UseAuthorization();
 app.UseFastEndpoints();
 app.UseSwaggerGen(); //add this
 app.Run();
@@ -320,7 +318,6 @@ If there are no validation errors added, and author creation worked, the followi
 
 ## Congratulations!
 You've persevered thus far and have your first working endpoint. If you're interested in completing this exercise, head on over to github and have a look through the [full source code](https://github.com/dj-nitehawk/MiniDevTo). Things should now be self explanatory. If something is unclear, please comment here or open a [github issue](https://github.com/dj-nitehawk/MiniDevTo/issues/new). I will try my best to answer within 24hrs. Also have a look through the following resources which will explain most of the code.
-
 
 ## Resources
 - **[Project Source Code](https://github.com/dj-nitehawk/MiniDevTo)**

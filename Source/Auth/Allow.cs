@@ -1,5 +1,8 @@
-﻿namespace MiniDevTo.Auth;
+﻿// ReSharper disable InconsistentNaming
 
+namespace MiniDevTo.Auth;
+
+//https://fast-endpoints.com/docs/security#source-generated-access-control-lists
 public static partial class Allow
 {
     public const string Article_Delete = "100";

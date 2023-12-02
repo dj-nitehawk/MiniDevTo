@@ -2,6 +2,6 @@
 
 public class JwtToken
 {
-    public string Value { get; set; }
+    public string Value { get; set; } = null!;
     public DateTime ExpiryDate { get; set; }
 }

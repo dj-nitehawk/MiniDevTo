@@ -2,10 +2,8 @@ using Author.Signup;
 
 namespace Tests.Author.Signup;
 
-public class Tests : TestClass<Fixture>
+public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
 {
-    public Tests(Fixture f, ITestOutputHelper o) : base(f, o) { }
-
     [Fact]
     public async void SignUp_Input_Validation_Failures()
     {

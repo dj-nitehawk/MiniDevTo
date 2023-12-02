@@ -8,7 +8,7 @@ public class ArticleModel
     public string Title { get; set; }
     public int CommentCount { get; set; }
     public string AuthorName { get; set; }
-    public string CreationDate { get => CreatedOn.Date.ToShortDateString(); }
+    public string CreationDate => CreatedOn.Date.ToShortDateString();
 
     [JsonIgnore]
     public DateTime CreatedOn { get; set; }

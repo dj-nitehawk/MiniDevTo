@@ -1,19 +1,16 @@
-﻿using MongoDB.Entities;
+﻿namespace Tests.Author.Login;
 
-namespace Tests.Author.Login;
-
-public class Fixture : TestFixture<Program>
+public class Fixture(IMessageSink s) : TestFixture<Program>(s)
 {
-    public Fixture(IMessageSink s) : base(s) { }
-
     public string Password { get; private set; } = default!;
     public Dom.Author Author { get; private set; } = default!;
 
-    protected override async Task SetupAsync()
+    protected override Task SetupAsync()
     {
-        Password = Fake.Internet.Password(10);
+        Password = Fake.Internet.Password();
         Author = Fake.Author(Password);
-        await Author.SaveAsync();
+
+        return Author.SaveAsync();
     }
 
     protected override async Task TearDownAsync()

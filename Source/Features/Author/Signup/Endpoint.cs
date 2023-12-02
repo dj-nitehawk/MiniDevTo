@@ -8,9 +8,9 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Request r, CancellationToken c)
+    public override async Task HandleAsync(Request req, CancellationToken c)
     {
-        var author = Map.ToEntity(r);
+        var author = Map.ToEntity(req);
 
         var emailIsTaken = await Data.EmailAddressIsTaken(author.Email);
         if (emailIsTaken)
@@ -24,9 +24,6 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
 
         await Data.CreateNewAuthor(author);
 
-        await SendAsync(new()
-        {
-            Message = "Thank you for signing up as an author!"
-        });
+        await SendAsync(new() { Message = "Thank you for signing up as an author!" });
     }
 }

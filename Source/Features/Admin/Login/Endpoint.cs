@@ -12,14 +12,14 @@ public class Endpoint : Endpoint<Request, Response>
     {
         var (adminID, passwordHash) = await Data.GetAdmin(r.UserName);
 
-        if (passwordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, passwordHash))
+        if (string.IsNullOrEmpty(passwordHash) || !BCrypt.Net.BCrypt.Verify(r.Password, passwordHash))
             ThrowError("Invalid login details!");
 
         Response.UserName = r.UserName;
         Response.UserPermissions = Allow.NamesFor(Allow.Admin);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
         Response.Token.Value = JWTBearer.CreateToken(
-            signingKey: Config["JwtSigningKey"],
+            signingKey: Config["JwtSigningKey"]!,
             expireAt: DateTime.UtcNow.AddHours(4),
             permissions: Allow.Admin,
             claims: (Claim.AdminID, adminID));

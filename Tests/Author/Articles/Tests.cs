@@ -5,14 +5,12 @@ using Save = Author.Articles.SaveArticle;
 
 namespace Tests.Author.Articles;
 
-public class Tests : TestClass<Fixture>
+public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
 {
-    public Tests(Fixture f, ITestOutputHelper o) : base(f, o) { }
-
     [Fact]
     public async Task Invalid_Article_Data()
     {
-        var req = new Save.Request()
+        var req = new Save.Request
         {
             Title = "blah",
             Content = "blah"
@@ -30,7 +28,7 @@ public class Tests : TestClass<Fixture>
     [Fact, Priority(1)]
     public async Task Create_New_Articles()
     {
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             var req = Fake.SaveRequest();
 
@@ -61,10 +59,11 @@ public class Tests : TestClass<Fixture>
     {
         var articleID = Fixture.ArticleIDs[0];
 
-        var (rsp1, res1) = await Fixture.Client.GETAsync<Get.Endpoint, Get.Request, Get.Response>(new()
-        {
-            ArticleID = articleID
-        });
+        var (rsp1, res1) = await Fixture.Client.GETAsync<Get.Endpoint, Get.Request, Get.Response>(
+                               new()
+                               {
+                                   ArticleID = articleID
+                               });
 
         rsp1.IsSuccessStatusCode.Should().BeTrue();
 
@@ -75,10 +74,11 @@ public class Tests : TestClass<Fixture>
         res1.Title.Should().Be(article.Title);
         res1.Content.Should().Be(article.Content);
 
-        var (rsp2, _) = await Fixture.Client.GETAsync<Get.Endpoint, Get.Request, Get.Response>(new()
-        {
-            ArticleID = Fake.Random.Guid().ToString()
-        });
+        var (rsp2, _) = await Fixture.Client.GETAsync<Get.Endpoint, Get.Request, Get.Response>(
+                            new()
+                            {
+                                ArticleID = Fake.Random.Guid().ToString()
+                            });
         rsp2.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
@@ -87,18 +87,19 @@ public class Tests : TestClass<Fixture>
     {
         var articleID = Fixture.ArticleIDs[0];
 
-        var (rsp, res) = await Fixture.Client.DELETEAsync<Delete.Endpoint, Delete.Request, Delete.Response>(new()
-        {
-            ArticleID = articleID
-        });
+        var (rsp, res) = await Fixture.Client.DELETEAsync<Delete.Endpoint, Delete.Request, Delete.Response>(
+                             new()
+                             {
+                                 ArticleID = articleID
+                             });
 
         rsp.IsSuccessStatusCode.Should().BeTrue();
         res.Message.Should().Be("Article Deleted!");
 
         var exists = await DB
-            .Find<Dom.Article>()
-            .MatchID(articleID)
-            .ExecuteAnyAsync();
+                           .Find<Dom.Article>()
+                           .MatchID(articleID)
+                           .ExecuteAnyAsync();
 
         exists.Should().BeFalse();
     }

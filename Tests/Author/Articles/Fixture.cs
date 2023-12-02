@@ -5,13 +5,11 @@ using MiniDevTo.Auth;
 
 namespace Tests.Author.Articles;
 
-public class Fixture : TestFixture<Program>
+public class Fixture(IMessageSink s) : TestFixture<Program>(s)
 {
-    public Fixture(IMessageSink s) : base(s) { }
-
     public List<string> ArticleIDs { get; set; } = new();
 
-    private string _authorID = default!;
+    string _authorID = default!;
 
     protected override async Task SetupAsync()
     {
@@ -20,16 +18,19 @@ public class Fixture : TestFixture<Program>
         _authorID = author.ID!;
 
         var jwtKey = Services.GetRequiredService<IConfiguration>()["JwtSigningKey"];
-        var bearerToken = JWTBearer.CreateToken(jwtKey!, u =>
-        {
-            u[Claim.AuthorID] = _authorID;
-            u.Permissions.AddRange(Allow.Author);
-        });
+        var bearerToken = JWTBearer.CreateToken(
+            jwtKey!,
+            u =>
+            {
+                u[Claim.AuthorID] = _authorID;
+                u.Permissions.AddRange(Allow.Author);
+            });
 
-        Client = CreateClient(c =>
-        {
-            c.DefaultRequestHeaders.Authorization = new("Bearer", bearerToken);
-        });
+        Client = CreateClient(
+            c =>
+            {
+                c.DefaultRequestHeaders.Authorization = new("Bearer", bearerToken);
+            });
     }
 
     protected override async Task TearDownAsync()

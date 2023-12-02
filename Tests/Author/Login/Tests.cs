@@ -3,10 +3,8 @@ using MiniDevTo.Auth;
 
 namespace Tests.Author.Login;
 
-public class Tests : TestClass<Fixture>
+public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
 {
-    public Tests(Fixture f, ITestOutputHelper o) : base(f, o) { }
-
     [Fact]
     public async Task Invalid_Login_Credentials()
     {

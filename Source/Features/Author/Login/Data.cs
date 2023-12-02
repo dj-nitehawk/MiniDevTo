@@ -5,17 +5,18 @@ public static class Data
     internal static Task<Author?> GetAuthor(string userName)
     {
         return DB
-            .Find<Dom.Author, Author>()
-            .Match(a => a.UserName == userName)
-            .Project(a => new(
-                a.ID!,
-                a.FirstName + " " + a.LastName,
-                a.PasswordHash))
-            .ExecuteSingleAsync();
+               .Find<Dom.Author, Author>()
+               .Match(a => a.UserName == userName)
+               .Project(
+                   a => new(
+                       a.ID!,
+                       a.FirstName + " " + a.LastName,
+                       a.PasswordHash))
+               .ExecuteSingleAsync();
     }
 
     internal record Author(
-        string authorID,
-        string fullName,
-        string passwordHash);
+        string AuthorID,
+        string FullName,
+        string PasswordHash);
 }

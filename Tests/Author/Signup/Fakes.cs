@@ -3,14 +3,15 @@ using Bogus;
 
 namespace Tests.Author.Signup;
 
-internal static class Fakes
+static class Fakes
 {
-    internal static Request Request(this Faker f) => new()
-    {
-        FirstName = f.Name.FirstName(),
-        LastName = f.Name.LastName(),
-        UserName = f.Internet.UserName(),
-        Email = f.Internet.Email(),
-        Password = f.Internet.Password()
-    };
+    internal static Request Request(this Faker f)
+        => new()
+        {
+            FirstName = f.Name.FirstName(),
+            LastName = f.Name.LastName(),
+            UserName = f.Internet.UserName(),
+            Email = f.Internet.Email(),
+            Password = f.Internet.Password()
+        };
 }

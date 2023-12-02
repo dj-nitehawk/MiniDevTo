@@ -12,17 +12,17 @@ public class Endpoint : Endpoint<Request, Response>
     {
         var author = await Data.GetAuthor(r.UserName);
 
-        if (author?.passwordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, author.passwordHash))
+        if (author?.PasswordHash is null || !BCrypt.Net.BCrypt.Verify(r.Password, author.PasswordHash))
             ThrowError("Invalid login credentials!");
 
-        Response.FullName = author.fullName;
+        Response.FullName = author.FullName;
         Response.UserPermissions = Allow.NamesFor(Allow.Author);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
         Response.Token.Value = JWTBearer.CreateToken(
-            signingKey: Config["JwtSigningKey"],
+            signingKey: Config["JwtSigningKey"]!,
             expireAt: DateTime.UtcNow.AddHours(4),
             permissions: Allow.Author,
-            claims: (Claim.AuthorID, author.authorID));
+            claims: (Claim.AuthorID, author.AuthorID));
 
         await SendAsync(Response);
     }

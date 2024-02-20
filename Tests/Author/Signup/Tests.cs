@@ -2,13 +2,13 @@ using Author.Signup;
 
 namespace Tests.Author.Signup;
 
-public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
+public class Tests(App a, ITestOutputHelper o) : TestClass<App>(a, o)
 {
     [Fact]
     public async void SignUp_Input_Validation_Failures()
     {
         var req = new Request();
-        var (rsp, res) = await Fixture.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);
+        var (rsp, res) = await App.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);
 
         rsp.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         res.Errors.Count.Should().Be(4);
@@ -24,10 +24,10 @@ public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
     {
         var req = Fake.Request();
 
-        var (rsp1, _) = await Fixture.Client.POSTAsync<Endpoint, Request, Response>(req);
+        var (rsp1, _) = await App.Client.POSTAsync<Endpoint, Request, Response>(req);
         rsp1.IsSuccessStatusCode.Should().BeTrue();
 
-        var (rsp2, res2) = await Fixture.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);
+        var (rsp2, res2) = await App.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);
         rsp2.IsSuccessStatusCode.Should().BeFalse();
         res2.Errors.Keys.Should().Equal(
             nameof(Request.Email),
@@ -41,7 +41,7 @@ public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
     {
         var req = Fake.Request();
 
-        var (rsp, res) = await Fixture.Client.POSTAsync<Endpoint, Request, Response>(req);
+        var (rsp, res) = await App.Client.POSTAsync<Endpoint, Request, Response>(req);
 
         rsp.IsSuccessStatusCode.Should().BeTrue();
         res.Message.Should().Be("Thank you for signing up as an author!");

@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.20.1"/>
-        <PackageReference Include="FastEndpoints.Generator" Version="5.20.1" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"/>
-        <PackageReference Include="FastEndpoints.Security" Version="5.20.1"/>
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.20.1"/>
-        <PackageReference Include="MongoDB.Entities" Version="23.0.0"/>
+        <PackageReference Include="FastEndpoints" Version="5.22.0.9-beta"/>
+        <PackageReference Include="FastEndpoints.Generator" Version="5.22.0.9-beta" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"/>
+        <PackageReference Include="FastEndpoints.Security" Version="5.22.0.9-beta"/>
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0.9-beta"/>
+        <PackageReference Include="MongoDB.Entities" Version="23.0.1"/>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
     </ItemGroup>
 

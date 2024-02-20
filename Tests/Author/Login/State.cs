@@ -1,6 +1,6 @@
 ﻿namespace Tests.Author.Login;
 
-public class Fixture(IMessageSink s) : TestFixture<Program>(s)
+public class State : StateFixture
 {
     public string Password { get; private set; } = default!;
     public Dom.Author Author { get; private set; } = default!;

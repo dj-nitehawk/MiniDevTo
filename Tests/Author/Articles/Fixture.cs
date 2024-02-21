@@ -7,7 +7,7 @@ namespace Tests.Author.Articles;
 
 public class Fixture(IMessageSink s) : AppFixture<Program>(s)
 {
-    //this is a stateful AppFixture because author id is needed to configure the client's permissions
+    //this is a stateful AppFixture because author id is needed to configure the client's AuthorID claim
 
     public List<string> ArticleIDs { get; set; } = [];
 

@@ -7,7 +7,7 @@ namespace Tests.Author.Articles;
 
 public class Fixture(IMessageSink s) : AppFixture<Program>(s)
 {
-    //this is a stateful AppFixture because author id is needed to configure the client's AuthorID claim
+    //this is a stateful AppFixture because author-id is needed to configure the httpclient (in order to generate the JWT with a AuthorID claim).
 
     public List<string> ArticleIDs { get; set; } = [];
 
@@ -17,7 +17,7 @@ public class Fixture(IMessageSink s) : AppFixture<Program>(s)
     {
         var author = Fake.Author();
         await author.SaveAsync();
-        _authorID = author.ID!;
+        _authorID = author.ID;
 
         var jwtKey = Services.GetRequiredService<IConfiguration>()["JwtSigningKey"];
         var bearerToken = JWTBearer.CreateToken(

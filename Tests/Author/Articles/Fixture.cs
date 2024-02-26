@@ -5,7 +5,7 @@ using MiniDevTo.Auth;
 
 namespace Tests.Author.Articles;
 
-public class Fixture(IMessageSink s) : AppFixture<Program>(s)
+public class Fixture : AppFixture<Program>
 {
     //this is a stateful AppFixture because author-id is needed to configure the httpclient (in order to generate the JWT with a AuthorID claim).
 

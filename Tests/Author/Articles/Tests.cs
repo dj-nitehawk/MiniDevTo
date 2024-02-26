@@ -5,7 +5,7 @@ using Save = Author.Articles.SaveArticle;
 
 namespace Tests.Author.Articles;
 
-public class Tests(Fixture f, ITestOutputHelper o) : TestClass<Fixture>(f, o)
+public class Tests(Fixture App) : TestBase<Fixture>
 {
     [Fact]
     public async Task Invalid_Article_Data()

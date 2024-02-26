@@ -2,7 +2,7 @@ using Author.Signup;
 
 namespace Tests.Author.Signup;
 
-public class Tests(App a, ITestOutputHelper o) : TestClass<App>(a, o)
+public class Tests(App App) : TestBase<App>
 {
     [Fact]
     public async void SignUp_Input_Validation_Failures()

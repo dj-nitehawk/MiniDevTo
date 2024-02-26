@@ -3,7 +3,7 @@ using MiniDevTo.Auth;
 
 namespace Tests.Author.Login;
 
-public class Tests(App a, State s, ITestOutputHelper o) : TestClass<App, State>(a, s, o)
+public class Tests(App App, State State) : TestBase<App, State>
 {
     [Fact]
     public async Task Invalid_Login_Credentials()

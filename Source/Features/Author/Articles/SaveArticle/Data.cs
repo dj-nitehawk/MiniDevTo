@@ -21,9 +21,8 @@ public static class Data
         {
             var res = await DB.Update<Dom.Article>()
                               .Match(
-                                  a =>
-                                      a.ID == article.ID &&
-                                      a.AuthorID == article.AuthorID)
+                                  a => a.ID == article.ID &&
+                                       a.AuthorID == article.AuthorID)
                               .ModifyOnly(
                                   a => new
                                   {

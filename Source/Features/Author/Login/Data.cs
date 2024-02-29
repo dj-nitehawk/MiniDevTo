@@ -9,7 +9,7 @@ public static class Data
                .Match(a => a.UserName == userName)
                .Project(
                    a => new(
-                       a.ID!,
+                       a.ID,
                        a.FirstName + " " + a.LastName,
                        a.PasswordHash))
                .ExecuteSingleAsync();

@@ -1,3 +1,3 @@
 ﻿namespace Tests;
 
-public class App(IMessageSink s) : AppFixture<Program>(s);
+public class App : AppFixture<Program>;

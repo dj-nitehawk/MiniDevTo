@@ -5,7 +5,7 @@ using MiniDevTo.Auth;
 
 namespace Tests.Author.Articles;
 
-public class Fixture : AppFixture<Program>
+public class Sut : AppFixture<Program>
 {
     //this is a stateful AppFixture because author-id is needed to configure the httpclient (in order to generate the JWT with a AuthorID claim).
 
@@ -20,12 +20,12 @@ public class Fixture : AppFixture<Program>
         _authorID = author.ID;
 
         var jwtKey = Services.GetRequiredService<IConfiguration>()["JwtSigningKey"];
-        var bearerToken = JWTBearer.CreateToken(
-            jwtKey!,
-            u =>
+        var bearerToken = JwtBearer.CreateToken(
+            o =>
             {
-                u[Claim.AuthorID] = _authorID; //this is why this fixture is stateful
-                u.Permissions.AddRange(Allow.Author);
+                o.SigningKey = jwtKey!;
+                o.User.Permissions.AddRange(Allow.Author);
+                o.User[Claim.AuthorID] = _authorID; //this is why this fixture is stateful
             });
 
         Client = CreateClient(c => c.DefaultRequestHeaders.Authorization = new("Bearer", bearerToken));

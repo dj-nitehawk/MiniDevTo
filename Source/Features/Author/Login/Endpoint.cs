@@ -18,11 +18,14 @@ public class Endpoint : Endpoint<Request, Response>
         Response.FullName = author.FullName;
         Response.UserPermissions = Allow.NamesFor(Allow.Author);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
-        Response.Token.Value = JWTBearer.CreateToken(
-            signingKey: Config["JwtSigningKey"]!,
-            expireAt: DateTime.UtcNow.AddHours(4),
-            permissions: Allow.Author,
-            claims: (Claim.AuthorID, author.AuthorID));
+        Response.Token.Value = JwtBearer.CreateToken(
+            o =>
+            {
+                o.SigningKey = Config["JwtSigningKey"]!;
+                o.ExpireAt = DateTime.UtcNow.AddHours(4);
+                o.User.Permissions.AddRange(Allow.Author);
+                o.User.Claims.Add((Claim.AuthorID, author.AuthorID));
+            });
 
         await SendAsync(Response);
     }

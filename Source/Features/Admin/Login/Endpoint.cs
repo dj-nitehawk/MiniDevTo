@@ -18,10 +18,13 @@ public class Endpoint : Endpoint<Request, Response>
         Response.UserName = r.UserName;
         Response.UserPermissions = Allow.NamesFor(Allow.Admin);
         Response.Token.ExpiryDate = DateTime.UtcNow.AddHours(4);
-        Response.Token.Value = JWTBearer.CreateToken(
-            signingKey: Config["JwtSigningKey"]!,
-            expireAt: DateTime.UtcNow.AddHours(4),
-            permissions: Allow.Admin,
-            claims: (Claim.AdminID, adminID));
+        Response.Token.Value = JwtBearer.CreateToken(
+            o =>
+            {
+                o.SigningKey = Config["JwtSigningKey"]!;
+                o.ExpireAt = DateTime.UtcNow.AddHours(4);
+                o.User.Permissions.AddRange(Allow.Admin);
+                o.User.Claims.Add((Claim.AdminID, adminID));
+            });
     }
 }

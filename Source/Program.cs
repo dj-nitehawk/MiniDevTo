@@ -1,8 +1,8 @@
 var bld = WebApplication.CreateBuilder();
 bld.Services
-   .AddFastEndpoints()
-   .AddJWTBearerAuth(bld.Configuration["JwtSigningKey"]!)
+   .AddAuthenticationJwtBearer(o => o.SigningKey = bld.Configuration["JwtSigningKey"])
    .AddAuthorization()
+   .AddFastEndpoints()
    .SwaggerDocument();
 
 var app = bld.Build();

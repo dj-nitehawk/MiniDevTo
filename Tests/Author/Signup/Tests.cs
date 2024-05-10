@@ -5,7 +5,7 @@ namespace Tests.Author.Signup;
 public class Tests(App App) : TestBase<App>
 {
     [Fact]
-    public async void SignUp_Input_Validation_Failures()
+    public async Task SignUp_Input_Validation_Failures()
     {
         var req = new Request();
         var (rsp, res) = await App.Client.POSTAsync<Endpoint, Request, ErrorResponse>(req);

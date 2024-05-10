@@ -10,10 +10,10 @@
 
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="6.12.0"/>
-        <PackageReference Include="FastEndpoints.Testing" Version="5.23.0"/>
+        <PackageReference Include="FastEndpoints.Testing" Version="5.25.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0"/>
-        <PackageReference Include="xunit" Version="2.7.0"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"/>
+        <PackageReference Include="xunit" Version="2.8.0" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.0" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
     </ItemGroup>
 
     <ItemGroup>

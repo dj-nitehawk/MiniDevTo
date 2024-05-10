@@ -1,4 +1,4 @@
-var bld = WebApplication.CreateBuilder();
+var bld = WebApplication.CreateBuilder(args);
 bld.Services
    .AddAuthenticationJwtBearer(o => o.SigningKey = bld.Configuration["JwtSigningKey"])
    .AddAuthorization()
@@ -6,14 +6,15 @@ bld.Services
    .SwaggerDocument();
 
 var app = bld.Build();
-app.UseAuthentication()
-   .UseAuthorization()
-   .UseFastEndpoints(c => c.Serializer.Options.PropertyNamingPolicy = null)
-   .UseSwaggerGen();
 
 await DB.InitAsync(app.Configuration["DbName"]!, "localhost");
 _001_seed_initial_admin_account.SuperAdminPassword = app.Configuration["SuperAdminPassword"]!;
 await DB.MigrateAsync();
+
+app.UseAuthentication()
+   .UseAuthorization()
+   .UseFastEndpoints(c => c.Serializer.Options.PropertyNamingPolicy = null)
+   .UseSwaggerGen();
 
 app.Run();
 
